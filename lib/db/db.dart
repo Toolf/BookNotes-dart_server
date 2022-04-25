@@ -2,19 +2,16 @@ import 'book_datasource.dart';
 import 'pg.dart';
 
 class DB {
-  final PostgreConnectionFactory pg;
-
   final BookDataSource bookDataSource;
 
   DB._({
-    required this.pg,
     required this.bookDataSource,
   });
 
   factory DB() {
+    final pg = PostgreConnectionFactory();
     return DB._(
-      pg: PostgreConnectionFactory(),
-      bookDataSource: BookDataSource(),
+      bookDataSource: BookDataSource(pg),
     );
   }
 }
