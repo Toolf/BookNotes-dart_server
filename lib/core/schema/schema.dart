@@ -1,3 +1,4 @@
+import '../exception/validation_exception.dart';
 import 'basic_shema.dart';
 import 'schema_base.dart';
 
@@ -17,7 +18,7 @@ class Schema<Entity> extends SchemaBase<Entity> {
       if (obj.containsKey(field)) {
         fields[field]!.validate(obj[field]);
       } else {
-        throw Exception("Invalid object does not has field '$field'");
+        throw ValidationException("Invalid object does not has field '$field'");
       }
     }
   }

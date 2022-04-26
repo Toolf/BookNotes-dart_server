@@ -1,3 +1,4 @@
+import '../exception/validation_exception.dart';
 import 'schema_base.dart';
 
 import 'schema.dart';
@@ -27,10 +28,13 @@ class SchemaView<Entity> extends SchemaBase<Entity> {
   validate(obj) {
     if (obj is! Map) throw Exception("Invalid object for schema");
     for (var field in fields) {
-      if (obj.containsKey(field)) {
-        base.fields[field]!.validate(obj[field]);
+      if (obj.containsKey(field.name)) {
+        if (field.nullable && obj[field.name] == null) continue;
+        base.fields[field.name]!.validate(obj[field.name]);
       } else {
-        throw Exception("Invalid object does not has field '$field'");
+        throw ValidationException(
+          "Invalid object does not has field '${field.name}'",
+        );
       }
     }
   }

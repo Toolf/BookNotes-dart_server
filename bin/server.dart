@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:book_notes/api/api.dart';
 import 'package:book_notes/core/endpoint.dart';
 import 'package:book_notes/core/exception/api_exception.dart';
+import 'package:book_notes/core/exception/validation_exception.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 
@@ -41,6 +42,8 @@ FutureOr<Response> _rootHandler(Request req) async {
     endpoint.returns?.validate(res);
     return Response.ok(jsonEncode(res));
   } on ApiException catch (e) {
+    return Response(400, body: e.message);
+  } on ValidationException catch (e) {
     return Response(400, body: e.message);
   } catch (e) {
     print(e);
