@@ -1,3 +1,4 @@
+import '../config/config.dart';
 import 'book_datasource.dart';
 import 'pg.dart';
 
@@ -9,7 +10,7 @@ class DB {
   });
 
   factory DB() {
-    final pg = PostgreConnectionFactory();
+    final pg = PostgreConnectionFactory(config.pgConfig);
     return DB._(
       bookDataSource: BookDataSource(pg),
     );
