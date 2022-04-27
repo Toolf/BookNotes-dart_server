@@ -6,3 +6,9 @@ start:
 
 stop:
 	docker stop book_notes/server
+
+test_unit:
+	dart test test/unit
+
+test_integration:
+	dart test test/integration
