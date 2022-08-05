@@ -143,4 +143,47 @@ void main() {
       });
     });
   });
+
+  group("Delete Endpoint:", () {
+    final bookJson = fixture("book/book_fixture.json");
+    final book = Book.fromJson(bookJson);
+
+    group("Validate parameters:", () {
+      test('Given valid book update model when validate then returns normaly',
+          () async {
+        // arrange
+        // act
+        // assert
+        expect(
+          () => bookApi.delete.parameters!.validate(book.bookId),
+          returnsNormally,
+        );
+      });
+      test('Given invalid book update model when validate then throw exception',
+          () async {
+        // arrange
+        final invalidBookUpdateJson = {};
+        // act
+        // assert
+        expect(
+          () => bookApi.update.parameters!.validate(invalidBookUpdateJson),
+          throwsA(TypeMatcher<ValidationException>()),
+        );
+      });
+    });
+
+    group("Method:", () {
+      test('Given valid book id when execute method then return delted book',
+          () async {
+        // arrange
+        final expectedBook = book;
+        when((() => bookDataSource.delete(book.bookId)))
+            .thenAnswer((_) => Future.value(book));
+        // act
+        final actualBook = await bookApi.delete.method(book.bookId);
+        // assert
+        expect(actualBook, expectedBook);
+      });
+    });
+  });
 }
