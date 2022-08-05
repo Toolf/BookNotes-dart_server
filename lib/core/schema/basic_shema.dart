@@ -1,3 +1,4 @@
+import '../exception/validation_exception.dart';
 import 'schema_base.dart';
 
 class BasicSchema<T> extends SchemaBase<T> {
@@ -26,7 +27,7 @@ class BasicSchema<T> extends SchemaBase<T> {
     switch (type) {
       case "string":
         if (obj is! String) {
-          throw Exception(
+          throw ValidationException(
             "Invalid object type is '${obj.runtimeType}' "
             "expected 'string'",
           );
@@ -35,7 +36,7 @@ class BasicSchema<T> extends SchemaBase<T> {
         break;
       case "integer":
         if (obj is! int) {
-          throw Exception(
+          throw ValidationException(
             "Invalid object type is '${obj.runtimeType}' "
             "expected 'integer'",
           );
@@ -43,14 +44,14 @@ class BasicSchema<T> extends SchemaBase<T> {
         break;
       case "boolean":
         if (obj is! bool) {
-          throw Exception(
+          throw ValidationException(
             "Invalid object type is '${obj.runtimeType}' "
             "expected 'boolean'",
           );
         }
         break;
       default:
-        throw Exception("Unknown object `$obj` type");
+        throw ValidationException("Unknown object `$obj` type");
     }
   }
 }
