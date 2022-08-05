@@ -32,7 +32,7 @@ void main() {
   });
 
   group("Create book:", () {
-    final bookCreateJson = fixture("db/book/book_create_fixture.json");
+    final bookCreateJson = fixture("book/book_create_fixture.json");
     final bookCreate = BookCreate.fromJson(bookCreateJson);
     test('When create book then in table must be added row', () async {
       // arrange
@@ -47,7 +47,7 @@ void main() {
   });
 
   group("Read book:", () {
-    final bookCreateJson = fixture("db/book/book_create_fixture.json");
+    final bookCreateJson = fixture("book/book_create_fixture.json");
     final bookCreate = BookCreate.fromJson(bookCreateJson);
     test('Given book exists in database then it can be read', () async {
       // arrange
@@ -62,9 +62,9 @@ void main() {
   });
 
   group("Update book:", () {
-    final bookCreateJson = fixture("db/book/book_create_fixture.json");
+    final bookCreateJson = fixture("book/book_create_fixture.json");
     final bookCreate = BookCreate.fromJson(bookCreateJson);
-    final bookUpdateJson = fixture("db/book/book_update_fixture.json");
+    final bookUpdateJson = fixture("book/book_update_fixture.json");
     test('Given book exists when update book then book fields update',
         () async {
       // arrange
@@ -81,7 +81,7 @@ void main() {
   });
 
   group("Delete book:", () {
-    final bookCreateJson = fixture("db/book/book_create_fixture.json");
+    final bookCreateJson = fixture("book/book_create_fixture.json");
     final bookCreate = BookCreate.fromJson(bookCreateJson);
     test('Given book exists when delete book then book must not exists',
         () async {

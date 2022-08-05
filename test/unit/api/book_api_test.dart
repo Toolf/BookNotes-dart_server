@@ -14,7 +14,7 @@ void main() {
   final bookApi = BookApi(bookDataSource);
 
   group("Create Endpoint:", () {
-    final bookCreateJson = fixture("db/book/book_create_fixture.json");
+    final bookCreateJson = fixture("book/book_create_fixture.json");
     final bookCreate = BookCreate.fromJson(bookCreateJson);
     group("Validate parameters:", () {
       test('Given valid bookCreate model when validate then returns normaly',
@@ -57,7 +57,7 @@ void main() {
   });
 
   group("Read Endpoint:", () {
-    final bookJson = fixture("db/book/book_fixture.json");
+    final bookJson = fixture("book/book_fixture.json");
     final book = Book.fromJson(bookJson);
     group("Validate parameters:", () {
       test('Given valid book id when validate then returns normaly', () async {
