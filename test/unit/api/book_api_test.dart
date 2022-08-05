@@ -2,6 +2,7 @@ import 'package:book_notes/api/book/book_api.dart';
 import 'package:book_notes/core/exception/validation_exception.dart';
 import 'package:book_notes/domain/book/book.dart';
 import 'package:book_notes/domain/book/book_create.dart';
+import 'package:book_notes/domain/book/book_update.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -91,6 +92,52 @@ void main() {
             .thenAnswer((_) => Future.value(expectedBook));
         // act
         final actualBook = await bookApi.read.method(expectedBook.bookId);
+        // assert
+        expect(actualBook, expectedBook);
+      });
+    });
+  });
+
+  group("Update Endpoint:", () {
+    final bookUpdateJson = fixture("book/book_update_fixture.json");
+    final bookUpdatedJson = fixture("book/book_updated_fixture.json");
+    final bookUpdate = BookUpdate.fromJson(bookUpdateJson);
+    final bookUpdated = Book.fromJson(bookUpdatedJson);
+
+    group("Validate parameters:", () {
+      test('Given valid book update model when validate then returns normaly',
+          () async {
+        // arrange
+        // act
+        // assert
+        expect(
+          () => bookApi.update.parameters!.validate(bookUpdateJson),
+          returnsNormally,
+        );
+      });
+      test('Given invalid book update model when validate then throw exception',
+          () async {
+        // arrange
+        final invalidBookUpdateJson = {};
+        // act
+        // assert
+        expect(
+          () => bookApi.update.parameters!.validate(invalidBookUpdateJson),
+          throwsA(TypeMatcher<ValidationException>()),
+        );
+      });
+    });
+
+    group("Method:", () {
+      test(
+          'Given valid book update model when execute method then return updated book',
+          () async {
+        // arrange
+        final expectedBook = bookUpdated;
+        when((() => bookDataSource.update(bookUpdate)))
+            .thenAnswer((_) => Future.value(expectedBook));
+        // act
+        final actualBook = await bookApi.update.method(bookUpdate);
         // assert
         expect(actualBook, expectedBook);
       });
