@@ -1,5 +1,5 @@
 class Book {
-  const Book._({
+  const Book({
     required this.bookId,
     required this.title,
     required this.description,
@@ -9,7 +9,7 @@ class Book {
   final String description;
 
   static Book fromJson(Map<String, dynamic> json) {
-    return Book._(
+    return Book(
       bookId: json['bookId'],
       title: json['title'],
       description: json['description'],
