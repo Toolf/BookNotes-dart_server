@@ -1,5 +1,6 @@
 import '../core/endpoint.dart';
 import '../core/pagination/pagination.dart';
+import 'schema/basic_shema.dart';
 import 'schema/schema_base.dart';
 
 abstract class CrudlDatasource<Entity, CreateEntity, UpdateEntity> {
@@ -25,30 +26,30 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
     required this.entityCreateSchema,
   });
 
-  CreateEndoint get create => CreateEndoint(entityCreateSchema);
+  CreateEndoint get create => CreateEndoint(entityCreateSchema, datasource);
   // TODO: implement
-  // ReadEndoint get read => ReadEndoint(intSchema);
+  ReadEndoint get read => ReadEndoint(intSchema);
   // UpdateEndoint get update => UpdateEndoint(entityUpdateSchema);
   // DeleteEndoint get delete => DeleteEndoint(intSchema);
   // ListEndoint get list => ListEndoint(PaginationResponceSchema(entitySchema));
 }
 
-class CreateEndoint<Entity> extends Endpoint<Entity, int> {
+class CreateEndoint<Entity, DataSource extends CrudlDatasource>
+    extends Endpoint<Entity, int> {
   final SchemaBase<Entity> param;
+  final DataSource dataSource;
 
-  CreateEndoint(this.param);
+  CreateEndoint(this.param, this.dataSource);
 
   @override
   SchemaBase<Entity>? get parameters => param;
 
   @override
   Future<int> method(Entity data) async {
-    print("Create entity");
-    return 0;
+    final entityId = dataSource.create(data);
+    return entityId;
   }
 
   @override
-  void validate(Entity data) {
-    print("Validate entity");
-  }
+  void validate(Entity data) {}
 }
