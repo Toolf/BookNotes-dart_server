@@ -1,4 +1,4 @@
-import 'package:book_notes/core/exception/validation_exception.dart';
+import 'exception/validation_exception.dart';
 
 import '../core/endpoint.dart';
 import '../core/pagination/pagination.dart';

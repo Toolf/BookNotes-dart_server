@@ -1,10 +1,10 @@
-import 'package:book_notes/api/book/delete.dart';
-import 'package:book_notes/api/book/update.dart';
-import 'package:book_notes/db/book_datasource.dart';
+import '../../db/book_datasource.dart';
 
 import 'create.dart';
-import 'list.dart';
 import 'read.dart';
+import 'update.dart';
+import 'delete.dart';
+import 'list.dart';
 
 class BookApi {
   final CreateEndpoint create;

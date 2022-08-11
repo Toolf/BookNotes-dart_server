@@ -1,8 +1,7 @@
-import '../../db/book_datasource.dart';
-import '../../domain/book/book_update.dart';
-
 import '../../core/endpoint.dart';
+import '../../db/book_datasource.dart';
 import '../../domain/book/book.dart';
+import '../../domain/book/book_update.dart';
 import '../../schema/book/book_update.dart';
 
 class UpdateEndpoint extends Endpoint<BookUpdate, Book> {

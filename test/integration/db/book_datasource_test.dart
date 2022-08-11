@@ -1,7 +1,7 @@
-import 'package:book_notes/config/pg_config.dart';
+import 'package:book_notes/core/db/pg_config.dart';
 import 'package:book_notes/core/exception/db_exception.dart';
 import 'package:book_notes/db/book_datasource.dart';
-import 'package:book_notes/db/pg.dart';
+import 'package:book_notes/core/db/pg.dart';
 import 'package:book_notes/domain/book/book_create.dart';
 import 'package:book_notes/domain/book/book_update.dart';
 import 'package:test/test.dart';
