@@ -28,12 +28,13 @@ class BookDataSource extends CrudlDatasource<Book, BookCreate, BookUpdate> {
           });
       return res.single["Book"]!["bookId"] as int;
     } catch (e) {
-      await connection.close();
       if (e is Error || e is Exception) {
         throw DbException("Invalid create operation", e);
       } else {
         rethrow;
       }
+    } finally {
+      await connection.close();
     }
   }
 
@@ -52,12 +53,13 @@ class BookDataSource extends CrudlDatasource<Book, BookCreate, BookUpdate> {
       final bookData = res.single["Book"]!;
       return Book.fromJson(bookData);
     } catch (e) {
-      await connection.close();
       if (e is Error || e is Exception) {
         throw DbException("Invalid read operation", e);
       } else {
         rethrow;
       }
+    } finally {
+      await connection.close();
     }
   }
 
@@ -77,12 +79,13 @@ class BookDataSource extends CrudlDatasource<Book, BookCreate, BookUpdate> {
       final bookData = res.single["Book"]!;
       return Book.fromJson(bookData);
     } catch (e) {
-      await connection.close();
       if (e is Error || e is Exception) {
         throw DbException("Invalid delete operation", e);
       } else {
         rethrow;
       }
+    } finally {
+      await connection.close();
     }
   }
 
@@ -113,11 +116,12 @@ class BookDataSource extends CrudlDatasource<Book, BookCreate, BookUpdate> {
       return Book.fromJson(bookData);
     } catch (e) {
       if (e is Error || e is Exception) {
-        await connection.close();
         throw DbException("Invalid update operation", e);
       } else {
         rethrow;
       }
+    } finally {
+      await connection.close();
     }
   }
 }
