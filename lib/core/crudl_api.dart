@@ -1,7 +1,6 @@
-import 'exception/validation_exception.dart';
-
 import '../core/endpoint.dart';
 import '../core/pagination/pagination.dart';
+import 'exception/validation_exception.dart';
 import 'pagination/pagination_schema.dart';
 import 'schema/basic_shema.dart';
 import 'schema/schema_base.dart';
@@ -35,14 +34,12 @@ abstract class CrudlDatasource<Entity, CreateEntity, UpdateEntity>
         ListDatasource<Entity> {}
 
 class CrudlApi<Entity, CreateEntity, UpdateEntity> {
-  final String entity;
   final CrudlDatasource<Entity, CreateEntity, UpdateEntity> datasource;
   final SchemaBase<Entity> entitySchema;
-  final SchemaBase<Entity> entityUpdateSchema;
-  final SchemaBase<Entity> entityCreateSchema;
+  final SchemaBase<UpdateEntity> entityUpdateSchema;
+  final SchemaBase<CreateEntity> entityCreateSchema;
 
   CrudlApi({
-    required this.entity,
     required this.datasource,
     required this.entitySchema,
     required this.entityUpdateSchema,

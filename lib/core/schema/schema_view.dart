@@ -1,7 +1,6 @@
 import '../exception/validation_exception.dart';
-import 'schema_base.dart';
-
 import 'schema.dart';
+import 'schema_base.dart';
 
 class SchemaViewField {
   final String name;

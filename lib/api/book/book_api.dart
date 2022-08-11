@@ -1,33 +1,18 @@
+import '../../core/crudl_api.dart';
 import '../../db/book_datasource.dart';
+import '../../domain/book/book.dart';
+import '../../domain/book/book_create.dart';
+import '../../domain/book/book_update.dart';
+import '../../schema/book/book.dart';
+import '../../schema/book/book_create.dart';
+import '../../schema/book/book_update.dart';
 
-import 'create.dart';
-import 'read.dart';
-import 'update.dart';
-import 'delete.dart';
-import 'list.dart';
-
-class BookApi {
-  final CreateEndpoint create;
-  final ReadEndpoint read;
-  final UpdateEndpoint update;
-  final DeleteEndpoint delete;
-  final ListEndpoint list;
-
-  BookApi._({
-    required this.create,
-    required this.read,
-    required this.update,
-    required this.delete,
-    required this.list,
-  });
-
-  factory BookApi(BookDataSource dataSource) {
-    return BookApi._(
-      create: CreateEndpoint(dataSource),
-      read: ReadEndpoint(dataSource),
-      update: UpdateEndpoint(dataSource),
-      delete: DeleteEndpoint(dataSource),
-      list: ListEndpoint(dataSource),
-    );
-  }
+class BookApi extends CrudlApi<Book, BookCreate, BookUpdate> {
+  BookApi(BookDataSource dataSource)
+      : super(
+          datasource: dataSource,
+          entitySchema: bookSchema,
+          entityUpdateSchema: bookUpdateSchema,
+          entityCreateSchema: bookCreateSchema,
+        );
 }
