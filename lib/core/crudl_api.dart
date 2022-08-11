@@ -2,6 +2,7 @@ import 'exception/validation_exception.dart';
 
 import '../core/endpoint.dart';
 import '../core/pagination/pagination.dart';
+import 'pagination/pagination_schema.dart';
 import 'schema/basic_shema.dart';
 import 'schema/schema_base.dart';
 
@@ -53,8 +54,7 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
   UpdateEndpoint get update =>
       UpdateEndpoint(entitySchema, entityUpdateSchema, datasource);
   DeleteEndpoint get delete => DeleteEndpoint(entitySchema, datasource);
-  // TODO: implement
-  // ListEndoint get list => ListEndoint(PaginationResponceSchema(entitySchema));
+  ListEndpoint get list => ListEndpoint(entitySchema, datasource);
 }
 
 class CreateEndpoint<CreateEntity,
@@ -154,4 +154,27 @@ class DeleteEndpoint<Entity, DataSource extends DeleteDatasource<Entity>>
       throw ValidationException("Entity id must be positive number");
     }
   }
+}
+
+class ListEndpoint<Entity, DataSource extends ListDatasource<Entity>>
+    extends Endpoint<PaginationRequest, PaginationResponce<Entity>> {
+  final SchemaBase<Entity> entitySchema;
+  final DataSource dataSource;
+
+  ListEndpoint(this.entitySchema, this.dataSource);
+
+  @override
+  SchemaBase<PaginationRequest>? get parameters => paginationRequestSchema;
+  @override
+  SchemaBase<PaginationResponce<Entity>>? get returns =>
+      PaginationResponceSchema(entitySchema);
+
+  @override
+  Future<PaginationResponce<Entity>> method(PaginationRequest request) async {
+    final entities = dataSource.list(request);
+    return entities;
+  }
+
+  @override
+  void validate(PaginationRequest request) {}
 }
