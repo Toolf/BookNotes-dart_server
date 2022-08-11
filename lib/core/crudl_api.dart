@@ -49,8 +49,9 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
   });
 
   CreateEndpoint get create => CreateEndpoint(entityCreateSchema, datasource);
-  ReadEndpoint get read => ReadEndpoint(datasource);
-  UpdateEndpoint get update => UpdateEndpoint(entityUpdateSchema, datasource);
+  ReadEndpoint get read => ReadEndpoint(entitySchema, datasource);
+  UpdateEndpoint get update =>
+      UpdateEndpoint(entitySchema, entityUpdateSchema, datasource);
   DeleteEndpoint get delete => DeleteEndpoint(entitySchema, datasource);
   // TODO: implement
   // ListEndoint get list => ListEndoint(PaginationResponceSchema(entitySchema));
@@ -66,6 +67,8 @@ class CreateEndpoint<CreateEntity,
 
   @override
   SchemaBase<CreateEntity>? get parameters => param;
+  @override
+  SchemaBase<int>? get returns => intSchema;
 
   @override
   Future<int> method(CreateEntity data) async {
@@ -79,12 +82,15 @@ class CreateEndpoint<CreateEntity,
 
 class ReadEndpoint<Entity, DataSource extends ReadDatasource<Entity>>
     extends Endpoint<int, Entity> {
+  final SchemaBase<Entity> entitySchema;
   final DataSource dataSource;
 
-  ReadEndpoint(this.dataSource);
+  ReadEndpoint(this.entitySchema, this.dataSource);
 
   @override
   SchemaBase<int>? get parameters => intSchema;
+  @override
+  SchemaBase<Entity>? get returns => entitySchema;
 
   @override
   Future<Entity> method(int entityId) async {
@@ -103,13 +109,16 @@ class ReadEndpoint<Entity, DataSource extends ReadDatasource<Entity>>
 class UpdateEndpoint<Entity, UpdateEntity,
         DataSource extends UpdateDatasource<Entity, UpdateEntity>>
     extends Endpoint<UpdateEntity, Entity> {
+  final SchemaBase<Entity> entitySchema;
   final SchemaBase<UpdateEntity> param;
   final DataSource dataSource;
 
-  UpdateEndpoint(this.param, this.dataSource);
+  UpdateEndpoint(this.entitySchema, this.param, this.dataSource);
 
   @override
   SchemaBase<UpdateEntity>? get parameters => param;
+  @override
+  SchemaBase<Entity>? get returns => entitySchema;
 
   @override
   Future<Entity> method(UpdateEntity updateEntity) async {
