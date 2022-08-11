@@ -51,8 +51,8 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
   CreateEndpoint get create => CreateEndpoint(entityCreateSchema, datasource);
   ReadEndpoint get read => ReadEndpoint(datasource);
   UpdateEndpoint get update => UpdateEndpoint(entityUpdateSchema, datasource);
+  DeleteEndpoint get delete => DeleteEndpoint(entitySchema, datasource);
   // TODO: implement
-  // DeleteEndoint get delete => DeleteEndoint(intSchema);
   // ListEndoint get list => ListEndoint(PaginationResponceSchema(entitySchema));
 }
 
@@ -119,4 +119,30 @@ class UpdateEndpoint<Entity, UpdateEntity,
 
   @override
   void validate(UpdateEntity updateEntity) {}
+}
+
+class DeleteEndpoint<Entity, DataSource extends DeleteDatasource<Entity>>
+    extends Endpoint<int, Entity> {
+  final SchemaBase<Entity> entitySchema;
+  final DataSource dataSource;
+
+  DeleteEndpoint(this.entitySchema, this.dataSource);
+
+  @override
+  SchemaBase<int>? get parameters => intSchema;
+  @override
+  SchemaBase<Entity>? get returns => entitySchema;
+
+  @override
+  Future<Entity> method(int entityId) async {
+    final entity = dataSource.delete(entityId);
+    return entity;
+  }
+
+  @override
+  void validate(int entityId) {
+    if (entityId < 0) {
+      throw ValidationException("Entity id must be positive number");
+    }
+  }
 }
