@@ -46,12 +46,17 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
     required this.entityCreateSchema,
   });
 
-  CreateEndpoint get create => CreateEndpoint(entityCreateSchema, datasource);
-  ReadEndpoint get read => ReadEndpoint(entitySchema, datasource);
-  UpdateEndpoint get update =>
-      UpdateEndpoint(entitySchema, entityUpdateSchema, datasource);
-  DeleteEndpoint get delete => DeleteEndpoint(entitySchema, datasource);
-  ListEndpoint get list => ListEndpoint(entitySchema, datasource);
+  CreateEndpoint<CreateEntity, CreateDatasource<CreateEntity>> get create =>
+      CreateEndpoint(entityCreateSchema, datasource);
+  ReadEndpoint<Entity, ReadDatasource<Entity>> get read =>
+      ReadEndpoint(entitySchema, datasource);
+  UpdateEndpoint<Entity, UpdateEntity, UpdateDatasource<Entity, UpdateEntity>>
+      get update =>
+          UpdateEndpoint(entitySchema, entityUpdateSchema, datasource);
+  DeleteEndpoint<Entity, DeleteDatasource<Entity>> get delete =>
+      DeleteEndpoint(entitySchema, datasource);
+  ListEndpoint<Entity, ListDatasource<Entity>> get list =>
+      ListEndpoint(entitySchema, datasource);
 }
 
 class CreateEndpoint<CreateEntity,
