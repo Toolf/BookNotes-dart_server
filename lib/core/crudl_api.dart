@@ -50,8 +50,8 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
 
   CreateEndpoint get create => CreateEndpoint(entityCreateSchema, datasource);
   ReadEndpoint get read => ReadEndpoint(datasource);
+  UpdateEndpoint get update => UpdateEndpoint(entityUpdateSchema, datasource);
   // TODO: implement
-  // UpdateEndoint get update => UpdateEndoint(entityUpdateSchema);
   // DeleteEndoint get delete => DeleteEndoint(intSchema);
   // ListEndoint get list => ListEndoint(PaginationResponceSchema(entitySchema));
 }
@@ -98,4 +98,25 @@ class ReadEndpoint<Entity, DataSource extends ReadDatasource<Entity>>
       throw ValidationException("Entity id must be positive number");
     }
   }
+}
+
+class UpdateEndpoint<Entity, UpdateEntity,
+        DataSource extends UpdateDatasource<Entity, UpdateEntity>>
+    extends Endpoint<UpdateEntity, Entity> {
+  final SchemaBase<UpdateEntity> param;
+  final DataSource dataSource;
+
+  UpdateEndpoint(this.param, this.dataSource);
+
+  @override
+  SchemaBase<UpdateEntity>? get parameters => param;
+
+  @override
+  Future<Entity> method(UpdateEntity updateEntity) async {
+    final entity = dataSource.update(updateEntity);
+    return entity;
+  }
+
+  @override
+  void validate(UpdateEntity updateEntity) {}
 }
