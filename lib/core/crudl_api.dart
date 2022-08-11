@@ -56,24 +56,25 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
   // ListEndoint get list => ListEndoint(PaginationResponceSchema(entitySchema));
 }
 
-class CreateEndpoint<Entity, DataSource extends CrudlDatasource>
-    extends Endpoint<Entity, int> {
-  final SchemaBase<Entity> param;
+class CreateEndpoint<CreateEntity,
+        DataSource extends CreateDatasource<CreateEntity>>
+    extends Endpoint<CreateEntity, int> {
+  final SchemaBase<CreateEntity> param;
   final DataSource dataSource;
 
   CreateEndpoint(this.param, this.dataSource);
 
   @override
-  SchemaBase<Entity>? get parameters => param;
+  SchemaBase<CreateEntity>? get parameters => param;
 
   @override
-  Future<int> method(Entity data) async {
+  Future<int> method(CreateEntity data) async {
     final entityId = dataSource.create(data);
     return entityId;
   }
 
   @override
-  void validate(Entity data) {}
+  void validate(CreateEntity data) {}
 }
 
 class ReadEndpoint<Entity, DataSource extends ReadDatasource<Entity>>
