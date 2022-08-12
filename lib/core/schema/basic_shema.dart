@@ -63,6 +63,15 @@ class BasicSchema<T> extends SchemaBase<T> {
           );
         }
         break;
+      case "date":
+        if (obj is! DateTime &&
+            !(obj is String && DateTime.tryParse(obj) != null)) {
+          throw ValidationException(
+            "Invalid object type is '${obj.runtimeType}' "
+            "expected 'DateTime' or 'string'",
+          );
+        }
+        break;
       default:
         throw ValidationException("Unknown object `$obj` type");
     }

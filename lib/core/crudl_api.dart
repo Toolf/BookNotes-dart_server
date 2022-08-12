@@ -1,37 +1,10 @@
 import '../core/endpoint.dart';
 import '../core/pagination/pagination.dart';
+import 'db/crudl_datasource.dart';
 import 'exception/validation_exception.dart';
 import 'pagination/pagination_schema.dart';
 import 'schema/basic_shema.dart';
 import 'schema/schema_base.dart';
-
-abstract class CreateDatasource<CreateEntity> {
-  Future<int> create(CreateEntity entity);
-}
-
-abstract class ReadDatasource<Entity> {
-  Future<Entity> read(int entityId);
-}
-
-abstract class UpdateDatasource<Entity, UpdateEntity> {
-  Future<Entity> update(UpdateEntity entity);
-}
-
-abstract class DeleteDatasource<Entity> {
-  Future<Entity> delete(int entityId);
-}
-
-abstract class ListDatasource<Entity> {
-  Future<PaginationResponce<Entity>> list(PaginationRequest request);
-}
-
-abstract class CrudlDatasource<Entity, CreateEntity, UpdateEntity>
-    with
-        CreateDatasource<CreateEntity>,
-        ReadDatasource<Entity>,
-        UpdateDatasource<Entity, UpdateEntity>,
-        DeleteDatasource<Entity>,
-        ListDatasource<Entity> {}
 
 class CrudlApi<Entity, CreateEntity, UpdateEntity> {
   final CrudlDatasource<Entity, CreateEntity, UpdateEntity> datasource;
