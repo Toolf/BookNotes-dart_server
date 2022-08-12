@@ -1,0 +1,11 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "server",
+            "request": "launch",
+            "type": "dart",
+            "program": "${cwd}/bin/server.dart"
+        }
+    ]
+}
