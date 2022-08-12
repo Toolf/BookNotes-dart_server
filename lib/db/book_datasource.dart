@@ -96,7 +96,7 @@ class BookDataSource extends CrudlDatasource<Book, BookCreate, BookUpdate> {
       await connection.open();
       return await connection.transaction((conn) async {
         final res = await conn.mappedResultsQuery(
-            "SELECT $identityName, title, description "
+            "SELECT $identityName, \"title\", \"description\", \"createAt\", \"updateAt\" "
             "FROM $tableName "
             "LIMIT @limit OFFSET @offset ",
             substitutionValues: {
@@ -139,7 +139,7 @@ class BookDataSource extends CrudlDatasource<Book, BookCreate, BookUpdate> {
     try {
       await connection.open();
       final res = await connection.mappedResultsQuery(
-          "UPDATE $tableName"
+          "UPDATE $tableName "
           "SET "
           "  title = COALESCE(@title, title), "
           "  description = COALESCE(@description, description) "
