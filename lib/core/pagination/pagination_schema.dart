@@ -1,8 +1,7 @@
-import 'pagination.dart';
-import '../schema/schema.dart';
-
 import '../schema/basic_shema.dart';
+import '../schema/schema.dart';
 import '../schema/schema_base.dart';
+import 'pagination.dart';
 
 final paginationRequestSchema = Schema<PaginationRequest>(
   "PaginationRequest",

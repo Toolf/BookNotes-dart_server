@@ -1,6 +1,6 @@
 import '../config/config.dart';
+import '../core/db/pg.dart';
 import 'book_datasource.dart';
-import 'pg.dart';
 
 class DB {
   final BookDataSource bookDataSource;

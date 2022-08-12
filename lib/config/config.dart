@@ -1,3 +1,4 @@
+import '../core/db/pg_config.dart';
 import 'pg_config.dart';
 
 class Config {
