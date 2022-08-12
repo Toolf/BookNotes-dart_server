@@ -5,11 +5,24 @@ CREATE TABLE "Book" (
   "bookId" bigint generated always as identity,
   "title" varchar(64) NOT NULL,
   "description" varchar NOT NULL,
-  "createAt" date NOT NULL DEFAULT NOW(),
-  "updateAt" date NOT NULL DEFAULT NOW()
+  "createAt" timestamptz NOT NULL DEFAULT NOW(),
+  "updateAt" timestamptz NOT NULL DEFAULT NOW()
 );
 
 ALTER TABLE "Book" ADD CONSTRAINT "pkBook" PRIMARY KEY ("bookId");
+
+CREATE OR REPLACE FUNCTION book_update()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW."updateAt" = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER Book_updateAt_trigger
+BEFORE UPDATE ON "Book"
+FOR EACH ROW
+EXECUTE PROCEDURE book_update();
 
 CREATE TABLE "Character" (
   "characterId" bigint generated always as identity,
