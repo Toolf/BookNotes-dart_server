@@ -22,8 +22,9 @@ class PaginationResponceSchema<T> extends Schema<PaginationResponce<T>> {
             "page": BasicSchema(type: "integer", minValue: 0),
             "perPage": BasicSchema(type: "integer", minValue: 1),
             "filter": BasicSchema(type: "string"),
-            "data": BasicSchema(many: typeSchema.name),
-            "count": BasicSchema(type: "integer", minValue: 0)
+            "data": BasicSchema(many: typeSchema),
+            "count": BasicSchema(type: "integer", minValue: 0),
+            "total": BasicSchema(type: "integer", minValue: 0),
           },
           (dynamic json) {
             final data = (json['data'] as List)

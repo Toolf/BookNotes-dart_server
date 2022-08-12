@@ -90,9 +90,47 @@ class BookDataSource extends CrudlDatasource<Book, BookCreate, BookUpdate> {
   }
 
   @override
-  Future<PaginationResponce<Book>> list(PaginationRequest request) {
-    // TODO: implement list
-    throw UnimplementedError();
+  Future<PaginationResponce<Book>> list(PaginationRequest request) async {
+    final connection = connectionFactory.createConnection();
+    try {
+      await connection.open();
+      return await connection.transaction((conn) async {
+        final res = await conn.mappedResultsQuery(
+            "SELECT $identityName, title, description "
+            "FROM $tableName "
+            "LIMIT @limit OFFSET @offset ",
+            substitutionValues: {
+              "limit": request.perPage,
+              "offset": request.page * request.perPage,
+            });
+        final books = res.map((bookMap) {
+          final bookData = bookMap["Book"]!;
+          return Book.fromJson(bookData);
+        }).toList();
+
+        final totalResult = await conn.query(
+          "SELECT COUNT(*) "
+          "FROM $tableName",
+        );
+        final total = totalResult.first.first;
+
+        return PaginationResponce<Book>(
+          filter: request.filter,
+          page: request.page,
+          perPage: request.perPage,
+          total: total,
+          data: books,
+        );
+      });
+    } catch (e) {
+      if (e is Error || e is Exception) {
+        throw DbException("Invalid list operation", e);
+      } else {
+        rethrow;
+      }
+    } finally {
+      await connection.close();
+    }
   }
 
   @override

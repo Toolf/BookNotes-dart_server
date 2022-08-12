@@ -10,7 +10,7 @@ class BasicSchema<T> extends SchemaBase<T> {
   final bool unique = false;
   final String note = "";
   final String? one;
-  final String? many;
+  final SchemaBase? many;
 
   BasicSchema({
     this.type = 'ref',
@@ -24,6 +24,19 @@ class BasicSchema<T> extends SchemaBase<T> {
 
   @override
   validate(dynamic obj) {
+    if (many != null) {
+      if (obj is! List) {
+        throw ValidationException(
+          "Invalid object type is '${obj.runtimeType}' "
+          "expected 'list'",
+        );
+      }
+      for (var element in obj) {
+        many!.validate(element);
+      }
+      return;
+    }
+
     switch (type) {
       case "string":
         if (obj is! String) {

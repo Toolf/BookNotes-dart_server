@@ -39,8 +39,10 @@ FutureOr<Response> _rootHandler(Request req) async {
             jsonData["data"];
     endpoint.validate(endpointData);
     final res = await endpoint.method(endpointData);
-    endpoint.returns?.validate(res);
-    return Response.ok(jsonEncode(res));
+    final resJsonString = jsonEncode(res);
+    final resJson = jsonDecode(resJsonString);
+    endpoint.returns?.validate(resJson);
+    return Response.ok(resJsonString);
   } on ApiException catch (e) {
     return Response(400, body: e.message);
   } on ValidationException catch (e) {
