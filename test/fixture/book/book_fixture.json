@@ -1,5 +1,7 @@
 {
     "bookId": 1,
     "title": "TestBook",
-    "description": "TestDescription"
+    "description": "TestDescription",
+    "createAt": "2022-08-12 10:08:18.818018Z",
+    "updateAt": "2022-08-12 10:08:18.818018Z"
 }
