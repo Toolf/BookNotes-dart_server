@@ -34,4 +34,15 @@ class PaginationResponce<Entity> {
     required this.total,
     required this.data,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'filter': filter,
+      'page': page,
+      'perPage': perPage,
+      'count': count,
+      'total': total,
+      'data': data,
+    };
+  }
 }
