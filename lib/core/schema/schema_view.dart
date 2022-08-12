@@ -5,10 +5,12 @@ import 'schema_base.dart';
 class SchemaViewField {
   final String name;
   final bool nullable;
+  final bool identity;
 
   SchemaViewField({
     required this.name,
     this.nullable = false,
+    this.identity = false,
   });
 }
 
