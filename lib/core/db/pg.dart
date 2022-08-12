@@ -1,6 +1,6 @@
 import 'package:postgres/postgres.dart';
 
-import '../../db/database.dart';
+import 'database.dart';
 import 'pg_config.dart';
 
 class PostgreConnectionFactory implements DatabaseConnectionFactory {
