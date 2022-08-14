@@ -4,11 +4,12 @@ import 'db/crudl_datasource.dart';
 import 'exception/validation_exception.dart';
 import 'pagination/pagination_schema.dart';
 import 'schema/basic_shema.dart';
+import 'schema/schema.dart';
 import 'schema/schema_base.dart';
 
 class CrudlApi<Entity, CreateEntity, UpdateEntity> {
   final CrudlDatasource<Entity, CreateEntity, UpdateEntity> datasource;
-  final SchemaBase<Entity> entitySchema;
+  final Schema<Entity> entitySchema;
   final SchemaBase<UpdateEntity> entityUpdateSchema;
   final SchemaBase<CreateEntity> entityCreateSchema;
 
@@ -47,7 +48,7 @@ class CreateEndpoint<CreateEntity,
 
   @override
   Future<int> method(CreateEntity data) async {
-    final entityId = dataSource.create(data);
+    final entityId = await dataSource.create(data);
     return entityId;
   }
 
@@ -69,7 +70,7 @@ class ReadEndpoint<Entity, DataSource extends ReadDatasource<Entity>>
 
   @override
   Future<Entity> method(int entityId) async {
-    final entity = dataSource.read(entityId);
+    final entity = await dataSource.read(entityId);
     return entity;
   }
 
@@ -97,7 +98,7 @@ class UpdateEndpoint<Entity, UpdateEntity,
 
   @override
   Future<Entity> method(UpdateEntity updateEntity) async {
-    final entity = dataSource.update(updateEntity);
+    final entity = await dataSource.update(updateEntity);
     return entity;
   }
 
@@ -119,7 +120,7 @@ class DeleteEndpoint<Entity, DataSource extends DeleteDatasource<Entity>>
 
   @override
   Future<Entity> method(int entityId) async {
-    final entity = dataSource.delete(entityId);
+    final entity = await dataSource.delete(entityId);
     return entity;
   }
 
@@ -133,7 +134,7 @@ class DeleteEndpoint<Entity, DataSource extends DeleteDatasource<Entity>>
 
 class ListEndpoint<Entity, DataSource extends ListDatasource<Entity>>
     extends Endpoint<PaginationRequest, PaginationResponce<Entity>> {
-  final SchemaBase<Entity> entitySchema;
+  final Schema<Entity> entitySchema;
   final DataSource dataSource;
 
   ListEndpoint(this.entitySchema, this.dataSource);
@@ -146,7 +147,7 @@ class ListEndpoint<Entity, DataSource extends ListDatasource<Entity>>
 
   @override
   Future<PaginationResponce<Entity>> method(PaginationRequest request) async {
-    final entities = dataSource.list(request);
+    final entities = await dataSource.list(request);
     return entities;
   }
 

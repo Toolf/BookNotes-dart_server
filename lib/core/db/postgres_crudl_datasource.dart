@@ -11,7 +11,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
     implements CrudlDatasource<Entity, CreateEntity, UpdateEntity> {
   final PostgreConnectionFactory connectionFactory;
   String get tableName => throw UnimplementedError();
-  String get identityName => throw UnimplementedError();
+  String get identityName => "${tableName.toLowerCase()}Id";
   final Schema<Entity> entitySchema;
   final SchemaView<CreateEntity> createEntitySchema;
   final SchemaView<UpdateEntity> updateEntitySchema;
@@ -54,7 +54,11 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
     final connection = connectionFactory.createConnection();
     try {
       await connection.open();
-      final fieldsNames = entitySchema.fields.keys.toList();
+
+      final fieldsNames = entitySchema.fields.entries
+          .where((f) => !f.value.related)
+          .map((f) => f.key)
+          .toList();
       final res = await connection.mappedResultsQuery(
         "SELECT ${fieldsNames.map((f) => '"$f"').join(', ')} "
         "FROM \"$tableName\" "
@@ -64,6 +68,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
         },
       );
       final entityData = res.single[tableName]!;
+
       return entityConstructor(entityData);
     } catch (e) {
       if (e is Error || e is Exception) {
@@ -107,7 +112,10 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
     final connection = connectionFactory.createConnection();
     try {
       await connection.open();
-      final fieldsNames = entitySchema.fields.keys.toList();
+      final fieldsNames = entitySchema.fields.entries
+          .where((f) => !f.value.related)
+          .map((f) => f.key)
+          .toList();
       return await connection.transaction((conn) async {
         final res = await conn.mappedResultsQuery(
             "SELECT ${fieldsNames.map((f) => '"$f"').join(', ')} "

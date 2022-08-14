@@ -1,4 +1,5 @@
 import '../exception/validation_exception.dart';
+import 'schema.dart';
 import 'schema_base.dart';
 
 class BasicSchema<T> extends SchemaBase<T> {
@@ -9,8 +10,10 @@ class BasicSchema<T> extends SchemaBase<T> {
   final int? maxValue;
   final bool unique = false;
   final String note = "";
-  final String? one;
-  final SchemaBase? many;
+  final Schema? one;
+  final Schema? many;
+
+  bool get related => one != null && many != null;
 
   BasicSchema({
     this.type = 'ref',

@@ -32,7 +32,7 @@ class SchemaView<Entity> extends SchemaBase<Entity> {
       if (obj.containsKey(field.name)) {
         if (field.nullable && obj[field.name] == null) continue;
         base.fields[field.name]!.validate(obj[field.name]);
-      } else {
+      } else if (!field.nullable) {
         throw ValidationException(
           "Invalid object does not has field '${field.name}'",
         );
