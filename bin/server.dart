@@ -18,6 +18,9 @@ FutureOr<Response> _rootHandler(Request req) async {
     }
 
     final data = await req.readAsString();
+    if (data.isEmpty) {
+      return Response(400, body: "Invalid request");
+    }
     final jsonData = jsonDecode(data);
     if (jsonData is! Map) {
       return Response(400, body: "Invalid request");

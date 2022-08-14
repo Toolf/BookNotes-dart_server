@@ -1,6 +1,5 @@
 import '../schema/basic_shema.dart';
 import '../schema/schema.dart';
-import '../schema/schema_base.dart';
 import 'pagination.dart';
 
 final paginationRequestSchema = Schema<PaginationRequest>(
@@ -15,7 +14,7 @@ final paginationRequestSchema = Schema<PaginationRequest>(
 
 class PaginationResponceSchema<T> extends Schema<PaginationResponce<T>> {
   PaginationResponceSchema(
-    SchemaBase<T> typeSchema,
+    Schema<T> typeSchema,
   ) : super(
           "PaginationRequest_${typeSchema.name}",
           {

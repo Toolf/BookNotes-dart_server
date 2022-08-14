@@ -6,13 +6,25 @@ import '../../domain/book/book_update.dart';
 import '../../schema/book/book.dart';
 import '../../schema/book/book_create.dart';
 import '../../schema/book/book_update.dart';
+import 'characters.dart';
 
 class BookApi extends CrudlApi<Book, BookCreate, BookUpdate> {
-  BookApi(BookDataSource dataSource)
-      : super(
+  final CharactersEndpoint characters;
+
+  BookApi._(
+    BookDataSource dataSource,
+    this.characters,
+  ) : super(
           datasource: dataSource,
           entitySchema: bookSchema,
           entityUpdateSchema: bookUpdateSchema,
           entityCreateSchema: bookCreateSchema,
         );
+
+  factory BookApi(BookDataSource dataSource) {
+    return BookApi._(
+      dataSource,
+      CharactersEndpoint(dataSource),
+    );
+  }
 }
