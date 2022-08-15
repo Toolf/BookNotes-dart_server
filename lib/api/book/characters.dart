@@ -1,5 +1,5 @@
-import 'package:book_notes/schema/book/character_pagination_request.dart';
-import 'package:book_notes/schema/character/character.dart';
+import '../../schema/book/character_pagination_request.dart';
+import '../../schema/character/character.dart';
 
 import '../../core/endpoint.dart';
 import '../../core/pagination/pagination.dart';
