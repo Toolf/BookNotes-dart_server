@@ -6,6 +6,6 @@ class DbException implements Exception {
 
   @override
   String toString() {
-    return "DbException: $message";
+    return "DbException: $message.$inner";
   }
 }

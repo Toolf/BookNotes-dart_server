@@ -75,10 +75,10 @@ class BookDataSource
         );
       });
     } catch (e) {
-      if (e is Error || e is Exception) {
-        throw DbException("Invalid characters operation", e);
-      } else {
+      if (e is DbException) {
         rethrow;
+      } else {
+        throw DbException("Invalid characters operation", e);
       }
     } finally {
       await connection.close();
@@ -131,10 +131,10 @@ class BookDataSource
         );
       });
     } catch (e) {
-      if (e is Error || e is Exception) {
-        throw DbException("Invalid actions operation", e);
-      } else {
+      if (e is DbException) {
         rethrow;
+      } else {
+        throw DbException("Invalid actions operation", e);
       }
     } finally {
       await connection.close();

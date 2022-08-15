@@ -39,10 +39,10 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
       );
       return res.single[tableName]![identityName] as int;
     } catch (e) {
-      if (e is Error || e is Exception) {
-        throw DbException("Invalid create operation", e);
-      } else {
+      if (e is DbException) {
         rethrow;
+      } else {
+        throw DbException("Invalid create operation", e);
       }
     } finally {
       await connection.close();
@@ -67,14 +67,17 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
           identityName: entityId,
         },
       );
+      if (res.isEmpty) {
+        throw DbException("Not found entity", null);
+      }
       final entityData = res.single[tableName]!;
 
       return entityConstructor(entityData);
     } catch (e) {
-      if (e is Error || e is Exception) {
-        throw DbException("Invalid read operation", e);
-      } else {
+      if (e is DbException) {
         rethrow;
+      } else {
+        throw DbException("Invalid read operation", e);
       }
     } finally {
       await connection.close();
@@ -94,13 +97,16 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
           substitutionValues: {
             identityName: entityId,
           });
+      if (res.isEmpty) {
+        throw DbException("Not found entity", null);
+      }
       final entityData = res.single[tableName]!;
       return entityConstructor(entityData);
     } catch (e) {
-      if (e is Error || e is Exception) {
-        throw DbException("Invalid delete operation", e);
-      } else {
+      if (e is DbException) {
         rethrow;
+      } else {
+        throw DbException("Invalid delete operation", e);
       }
     } finally {
       await connection.close();
@@ -145,10 +151,10 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
         );
       });
     } catch (e) {
-      if (e is Error || e is Exception) {
-        throw DbException("Invalid list operation", e);
-      } else {
+      if (e is DbException) {
         rethrow;
+      } else {
+        throw DbException("Invalid list operation", e);
       }
     } finally {
       await connection.close();
@@ -172,13 +178,16 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
         "RETURNING *;",
         substitutionValues: jsonDecode(jsonEncode(entity)),
       );
+      if (res.isEmpty) {
+        throw DbException("Not found entity", null);
+      }
       final enityData = res.single[tableName]!;
       return entityConstructor(enityData);
     } catch (e) {
-      if (e is Error || e is Exception) {
-        throw DbException("Invalid update operation", e);
-      } else {
+      if (e is DbException) {
         rethrow;
+      } else {
+        throw DbException("Invalid update operation", e);
       }
     } finally {
       await connection.close();
