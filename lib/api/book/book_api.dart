@@ -8,13 +8,20 @@ import '../../schema/book/book_create.dart';
 import '../../schema/book/book_update.dart';
 import 'characters.dart';
 
-class BookApi extends CrudlApi<Book, BookCreate, BookUpdate> {
+class BookApi {
+  final CrudlApi<Book, BookCreate, BookUpdate> _crudl;
+
   final CharactersEndpoint characters;
+  get create => _crudl.create;
+  get read => _crudl.read;
+  get update => _crudl.update;
+  get delete => _crudl.delete;
+  get list => _crudl.list;
 
   BookApi._(
     BookDataSource dataSource,
     this.characters,
-  ) : super(
+  ) : _crudl = CrudlApi<Book, BookCreate, BookUpdate>(
           datasource: dataSource,
           entitySchema: bookSchema,
           entityUpdateSchema: bookUpdateSchema,

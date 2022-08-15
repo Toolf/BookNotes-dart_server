@@ -7,11 +7,18 @@ import '../../schema/character/character.dart';
 import '../../schema/character/character_create.dart';
 import '../../schema/character/character_update.dart';
 
-class CharacterApi
-    extends CrudlApi<Character, CharacterCreate, CharacterUpdate> {
+class CharacterApi {
+  final CrudlApi<Character, CharacterCreate, CharacterUpdate> _crudl;
+
+  get create => _crudl.create;
+  get read => _crudl.read;
+  get update => _crudl.update;
+  get delete => _crudl.delete;
+  get list => _crudl.list;
+
   CharacterApi._(
     CharacterDataSource dataSource,
-  ) : super(
+  ) : _crudl = CrudlApi<Character, CharacterCreate, CharacterUpdate>(
           datasource: dataSource,
           entitySchema: characterSchema,
           entityUpdateSchema: characterUpdateSchema,
