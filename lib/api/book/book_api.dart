@@ -6,12 +6,14 @@ import '../../domain/book/book_update.dart';
 import '../../schema/book/book.dart';
 import '../../schema/book/book_create.dart';
 import '../../schema/book/book_update.dart';
+import 'actions.dart';
 import 'characters.dart';
 
 class BookApi {
   final CrudlApi<Book, BookCreate, BookUpdate> _crudl;
 
   final CharactersEndpoint characters;
+  final ActionsEndpoint actions;
   get create => _crudl.create;
   get read => _crudl.read;
   get update => _crudl.update;
@@ -21,6 +23,7 @@ class BookApi {
   BookApi._(
     BookDataSource dataSource,
     this.characters,
+    this.actions,
   ) : _crudl = CrudlApi<Book, BookCreate, BookUpdate>(
           datasource: dataSource,
           entitySchema: bookSchema,
@@ -32,6 +35,7 @@ class BookApi {
     return BookApi._(
       dataSource,
       CharactersEndpoint(dataSource),
+      ActionsEndpoint(dataSource),
     );
   }
 }
