@@ -17,7 +17,7 @@ abstract class DeleteDatasource<Entity> {
 }
 
 abstract class ListDatasource<Entity> {
-  Future<PaginationResponce<Entity>> list(PaginationRequest request);
+  Future<PaginationResponse<Entity>> list(PaginationRequest request);
 }
 
 abstract class CrudlDatasource<Entity, CreateEntity, UpdateEntity>

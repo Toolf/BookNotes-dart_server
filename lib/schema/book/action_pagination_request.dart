@@ -1,4 +1,4 @@
-import '../../core/schema/basic_shema.dart';
+import '../../core/schema/basic_schema.dart';
 import '../../core/schema/schema.dart';
 import '../../domain/book/action_pagination_request.dart';
 

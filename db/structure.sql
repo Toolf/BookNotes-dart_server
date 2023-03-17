@@ -55,15 +55,15 @@ ALTER TABLE "CharacterAction" ADD CONSTRAINT "fkCharacterActionAction" FOREIGN K
 
 CREATE TABLE "Relationship" (
   "relationshipId" bigint generated always as identity,
-  "character_from_characterId" bigint NOT NULL,
-  "character_to_characterId" bigint NOT NULL,
+  "fromCharacterId" bigint NOT NULL,
+  "toCharacterId" bigint NOT NULL,
   "description" varchar(512) NOT NULL,
   "actionId" bigint NOT NULL
 );
 
 ALTER TABLE "Relationship" ADD CONSTRAINT "pkRelationship" PRIMARY KEY ("relationshipId");
-ALTER TABLE "Relationship" ADD CONSTRAINT "fkRelationshipCharacter-character_from" FOREIGN KEY ("character_from_characterId") REFERENCES "Character" ("characterId");
-ALTER TABLE "Relationship" ADD CONSTRAINT "fkRelationshipCharacter-character_to" FOREIGN KEY ("character_to_characterId") REFERENCES "Character" ("characterId");
+ALTER TABLE "Relationship" ADD CONSTRAINT "fkRelationshipCharacter-characterFrom" FOREIGN KEY ("fromCharacterId") REFERENCES "Character" ("characterId");
+ALTER TABLE "Relationship" ADD CONSTRAINT "fkRelationshipCharacter-characterTo" FOREIGN KEY ("toCharacterId") REFERENCES "Character" ("characterId");
 ALTER TABLE "Relationship" ADD CONSTRAINT "fkRelationshipAction" FOREIGN KEY ("actionId") REFERENCES "Action" ("actionId");
 
 CREATE TABLE "Note" (

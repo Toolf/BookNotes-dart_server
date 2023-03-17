@@ -1,11 +1,11 @@
-class Relationship {
+class RelationshipUpdate {
   final int relationshipId;
   final int fromCharacterId;
   final int toCharacterId;
   final String description;
   final int actionId;
 
-  Relationship({
+  RelationshipUpdate({
     required this.relationshipId,
     required this.fromCharacterId,
     required this.toCharacterId,
@@ -13,8 +13,8 @@ class Relationship {
     required this.actionId,
   });
 
-  static Relationship fromJson(Map<String, dynamic> json) {
-    return Relationship(
+  static RelationshipUpdate fromJson(Map<String, dynamic> json) {
+    return RelationshipUpdate(
       relationshipId: json['relationshipId'],
       fromCharacterId: json['fromCharacterId'],
       toCharacterId: json['toCharacterId'],

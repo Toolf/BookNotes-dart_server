@@ -9,7 +9,7 @@ import 'pg.dart';
 
 class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
     implements CrudlDatasource<Entity, CreateEntity, UpdateEntity> {
-  final PostgreConnectionFactory connectionFactory;
+  final PostgresConnectionFactory connectionFactory;
   String get tableName => throw UnimplementedError();
   String get identityName => "${tableName.toLowerCase()}Id";
   final Schema<Entity> entitySchema;
@@ -114,7 +114,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
   }
 
   @override
-  Future<PaginationResponce<Entity>> list(PaginationRequest request) async {
+  Future<PaginationResponse<Entity>> list(PaginationRequest request) async {
     final connection = connectionFactory.createConnection();
     try {
       await connection.open();
@@ -142,7 +142,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
         );
         final total = totalResult.first.first;
 
-        return PaginationResponce<Entity>(
+        return PaginationResponse<Entity>(
           filter: request.filter,
           page: request.page,
           perPage: request.perPage,
@@ -181,8 +181,8 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
       if (res.isEmpty) {
         throw DbException("Not found entity", null);
       }
-      final enityData = res.single[tableName]!;
-      return entityConstructor(enityData);
+      final entityData = res.single[tableName]!;
+      return entityConstructor(entityData);
     } catch (e) {
       if (e is DbException) {
         rethrow;

@@ -8,7 +8,7 @@ import '../../schema/action/action.dart';
 import '../../schema/book/action_pagination_request.dart';
 
 class ActionsEndpoint
-    extends Endpoint<ActionPaginationRequest, PaginationResponce<Action>> {
+    extends Endpoint<ActionPaginationRequest, PaginationResponse<Action>> {
   final BookDataSource dataSource;
 
   ActionsEndpoint(this.dataSource);
@@ -16,10 +16,10 @@ class ActionsEndpoint
   @override
   get parameters => actionPaginationRequestSchema;
   @override
-  get returns => PaginationResponceSchema(actionSchema);
+  get returns => PaginationResponseSchema(actionSchema);
 
   @override
-  Future<PaginationResponce<Action>> method(
+  Future<PaginationResponse<Action>> method(
     ActionPaginationRequest request,
   ) async {
     final actions = await dataSource.actions(request);

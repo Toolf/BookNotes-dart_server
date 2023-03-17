@@ -3,10 +3,10 @@ import 'package:postgres/postgres.dart';
 import 'database.dart';
 import 'pg_config.dart';
 
-class PostgreConnectionFactory implements DatabaseConnectionFactory {
+class PostgresConnectionFactory implements DatabaseConnectionFactory {
   final PgConfig config;
 
-  PostgreConnectionFactory(this.config);
+  PostgresConnectionFactory(this.config);
 
   @override
   PostgreSQLConnection createConnection() {

@@ -3,7 +3,7 @@ import '../core/pagination/pagination.dart';
 import 'db/crudl_datasource.dart';
 import 'exception/validation_exception.dart';
 import 'pagination/pagination_schema.dart';
-import 'schema/basic_shema.dart';
+import 'schema/basic_schema.dart';
 import 'schema/schema.dart';
 import 'schema/schema_base.dart';
 
@@ -133,7 +133,7 @@ class DeleteEndpoint<Entity, DataSource extends DeleteDatasource<Entity>>
 }
 
 class ListEndpoint<Entity, DataSource extends ListDatasource<Entity>>
-    extends Endpoint<PaginationRequest, PaginationResponce<Entity>> {
+    extends Endpoint<PaginationRequest, PaginationResponse<Entity>> {
   final Schema<Entity> entitySchema;
   final DataSource dataSource;
 
@@ -142,11 +142,11 @@ class ListEndpoint<Entity, DataSource extends ListDatasource<Entity>>
   @override
   SchemaBase<PaginationRequest>? get parameters => paginationRequestSchema;
   @override
-  SchemaBase<PaginationResponce<Entity>>? get returns =>
-      PaginationResponceSchema(entitySchema);
+  SchemaBase<PaginationResponse<Entity>>? get returns =>
+      PaginationResponseSchema(entitySchema);
 
   @override
-  Future<PaginationResponce<Entity>> method(PaginationRequest request) async {
+  Future<PaginationResponse<Entity>> method(PaginationRequest request) async {
     final entities = await dataSource.list(request);
     return entities;
   }

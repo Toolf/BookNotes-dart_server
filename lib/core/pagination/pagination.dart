@@ -18,7 +18,7 @@ class PaginationRequest {
   }
 }
 
-class PaginationResponce<Entity> {
+class PaginationResponse<Entity> {
   final int page;
   final int perPage;
   final int total;
@@ -27,7 +27,7 @@ class PaginationResponce<Entity> {
 
   int get count => data.length; // Count in current page
 
-  PaginationResponce({
+  PaginationResponse({
     required this.filter,
     required this.page,
     required this.perPage,
