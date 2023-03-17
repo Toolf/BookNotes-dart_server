@@ -19,7 +19,7 @@ void main() {
     username: "testUser",
     password: "testPassword",
   );
-  final connectionFactory = PostgreConnectionFactory(testPgConfig);
+  final connectionFactory = PostgresConnectionFactory(testPgConfig);
 
   setUp(() {
     bookDataSource = BookDataSource(connectionFactory);

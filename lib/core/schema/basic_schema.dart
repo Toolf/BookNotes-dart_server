@@ -16,14 +16,14 @@ class BasicSchema<T> extends SchemaBase<T> {
   bool get related => one != null && many != null;
 
   BasicSchema({
-    this.type = 'ref',
+    this.type = 'related',
     this.lengthMin,
     this.lengthMax,
     this.minValue,
     this.maxValue,
     this.one,
     this.many,
-  }) : super(type ?? 'ref', (obj) => obj as T);
+  }) : super(type ?? 'related', (obj) => obj as T);
 
   @override
   validate(dynamic obj) {
@@ -37,6 +37,10 @@ class BasicSchema<T> extends SchemaBase<T> {
       for (var element in obj) {
         many!.validate(element);
       }
+      return;
+    }
+    if (one != null) {
+      one!.validate(obj);
       return;
     }
 

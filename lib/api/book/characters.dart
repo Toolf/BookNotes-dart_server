@@ -9,7 +9,7 @@ import '../../domain/book/character_pagination_request.dart';
 import '../../domain/character/character.dart';
 
 class CharactersEndpoint extends Endpoint<CharacterPaginationRequest,
-    PaginationResponce<Character>> {
+    PaginationResponse<Character>> {
   final BookDataSource dataSource;
 
   CharactersEndpoint(this.dataSource);
@@ -17,10 +17,10 @@ class CharactersEndpoint extends Endpoint<CharacterPaginationRequest,
   @override
   get parameters => characterPaginationRequestSchema;
   @override
-  get returns => PaginationResponceSchema(characterSchema);
+  get returns => PaginationResponseSchema(characterSchema);
 
   @override
-  Future<PaginationResponce<Character>> method(
+  Future<PaginationResponse<Character>> method(
     CharacterPaginationRequest request,
   ) async {
     final characters = await dataSource.characters(request);

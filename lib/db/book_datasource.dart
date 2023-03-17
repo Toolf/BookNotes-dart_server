@@ -20,7 +20,7 @@ class BookDataSource
   @override
   String get tableName => 'Book';
 
-  BookDataSource(PostgreConnectionFactory connectionFactory)
+  BookDataSource(PostgresConnectionFactory connectionFactory)
       : super(
           (bookJson) => Book.fromJson(bookJson),
           bookSchema,
@@ -29,7 +29,7 @@ class BookDataSource
           connectionFactory,
         );
 
-  Future<PaginationResponce<Character>> characters(
+  Future<PaginationResponse<Character>> characters(
     CharacterPaginationRequest request,
   ) async {
     final connection = connectionFactory.createConnection();
@@ -66,7 +66,7 @@ class BookDataSource
         );
         final total = totalResult.first.first;
 
-        return PaginationResponce(
+        return PaginationResponse(
           data: characters,
           filter: request.filter,
           page: request.page,
@@ -85,7 +85,7 @@ class BookDataSource
     }
   }
 
-  Future<PaginationResponce<Action>> actions(
+  Future<PaginationResponse<Action>> actions(
     ActionPaginationRequest request,
   ) async {
     final connection = connectionFactory.createConnection();
@@ -122,7 +122,7 @@ class BookDataSource
         );
         final total = totalResult.first.first;
 
-        return PaginationResponce(
+        return PaginationResponse(
           data: actions,
           filter: request.filter,
           page: request.page,

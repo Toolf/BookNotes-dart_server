@@ -1,4 +1,4 @@
-import '../schema/basic_shema.dart';
+import '../schema/basic_schema.dart';
 import '../schema/schema.dart';
 import 'pagination.dart';
 
@@ -12,8 +12,8 @@ final paginationRequestSchema = Schema<PaginationRequest>(
   (obj) => PaginationRequest.fromJson(obj),
 );
 
-class PaginationResponceSchema<T> extends Schema<PaginationResponce<T>> {
-  PaginationResponceSchema(
+class PaginationResponseSchema<T> extends Schema<PaginationResponse<T>> {
+  PaginationResponseSchema(
     Schema<T> typeSchema,
   ) : super(
           "PaginationRequest_${typeSchema.name}",
@@ -30,7 +30,7 @@ class PaginationResponceSchema<T> extends Schema<PaginationResponce<T>> {
                 .map(typeSchema.entityConstructor)
                 .toList();
 
-            return PaginationResponce(
+            return PaginationResponse(
               filter: json['filter'],
               page: json['page'],
               perPage: json['perPage'],

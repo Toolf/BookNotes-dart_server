@@ -12,7 +12,7 @@ class ActionDataSource
   @override
   String get tableName => 'Action';
 
-  ActionDataSource(PostgreConnectionFactory connectionFactory)
+  ActionDataSource(PostgresConnectionFactory connectionFactory)
       : super(
           (actionJson) => Action.fromJson(actionJson),
           actionSchema,

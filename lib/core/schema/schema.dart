@@ -1,5 +1,5 @@
 import '../exception/validation_exception.dart';
-import 'basic_shema.dart';
+import 'basic_schema.dart';
 import 'schema_base.dart';
 
 class Schema<Entity> extends SchemaBase<Entity> {
