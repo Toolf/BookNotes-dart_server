@@ -6,7 +6,7 @@ final bookUpdateSchema = SchemaView(
   "BookUpdate",
   bookSchema,
   [
-    SchemaViewField(name: "bookId"),
+    SchemaViewField(name: "bookId", identity: true),
     SchemaViewField(name: "title", nullable: true),
     SchemaViewField(name: "description", nullable: true),
   ],

@@ -1,8 +1,6 @@
-import 'pagination.dart';
+import '../schema/basic_schema.dart';
 import '../schema/schema.dart';
-
-import '../schema/basic_shema.dart';
-import '../schema/schema_base.dart';
+import 'pagination.dart';
 
 final paginationRequestSchema = Schema<PaginationRequest>(
   "PaginationRequest",
@@ -14,24 +12,25 @@ final paginationRequestSchema = Schema<PaginationRequest>(
   (obj) => PaginationRequest.fromJson(obj),
 );
 
-class PaginationResponceSchema<T> extends Schema<PaginationResponce<T>> {
-  PaginationResponceSchema(
-    SchemaBase<T> typeSchema,
+class PaginationResponseSchema<T> extends Schema<PaginationResponse<T>> {
+  PaginationResponseSchema(
+    Schema<T> typeSchema,
   ) : super(
           "PaginationRequest_${typeSchema.name}",
           {
             "page": BasicSchema(type: "integer", minValue: 0),
             "perPage": BasicSchema(type: "integer", minValue: 1),
             "filter": BasicSchema(type: "string"),
-            "data": BasicSchema(many: typeSchema.name),
-            "count": BasicSchema(type: "integer", minValue: 0)
+            "data": BasicSchema(many: typeSchema),
+            "count": BasicSchema(type: "integer", minValue: 0),
+            "total": BasicSchema(type: "integer", minValue: 0),
           },
           (dynamic json) {
             final data = (json['data'] as List)
                 .map(typeSchema.entityConstructor)
                 .toList();
 
-            return PaginationResponce(
+            return PaginationResponse(
               filter: json['filter'],
               page: json['page'],
               perPage: json['perPage'],

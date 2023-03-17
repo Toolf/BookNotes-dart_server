@@ -6,7 +6,6 @@ final bookCreateSchema = SchemaView(
   "BookCreate",
   bookSchema,
   [
-    SchemaViewField(name: "bookId"),
     SchemaViewField(name: "title"),
     SchemaViewField(name: "description"),
   ],

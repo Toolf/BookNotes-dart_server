@@ -18,7 +18,7 @@ class PaginationRequest {
   }
 }
 
-class PaginationResponce<Entity> {
+class PaginationResponse<Entity> {
   final int page;
   final int perPage;
   final int total;
@@ -27,11 +27,22 @@ class PaginationResponce<Entity> {
 
   int get count => data.length; // Count in current page
 
-  PaginationResponce({
+  PaginationResponse({
     required this.filter,
     required this.page,
     required this.perPage,
     required this.total,
     required this.data,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'filter': filter,
+      'page': page,
+      'perPage': perPage,
+      'count': count,
+      'total': total,
+      'data': data,
+    };
+  }
 }

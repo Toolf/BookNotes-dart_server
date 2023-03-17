@@ -1,5 +1,5 @@
 class BookCreate {
-  const BookCreate._({
+  const BookCreate({
     required this.title,
     required this.description,
   });
@@ -7,7 +7,7 @@ class BookCreate {
   final String description;
 
   static BookCreate fromJson(Map<String, dynamic> json) {
-    return BookCreate._(
+    return BookCreate(
       title: json['title'],
       description: json['description'],
     );

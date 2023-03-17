@@ -1,0 +1,475 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "BookNotes",
+    "dateExported": "2023-03-17T20:01:37.615Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
+            "name": "action",
+            "containerId": "",
+            "created": "2023-03-17T17:19:19.846Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "book",
+            "containerId": "",
+            "created": "2023-03-17T17:19:29.400Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "9f8a87cd-b879-49a6-a793-bf57ad29cc79",
+            "name": "character",
+            "containerId": "",
+            "created": "2023-03-17T17:19:34.353Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "2b3552c9-1d48-4b3b-bd2c-138223c7db11",
+            "name": "relationship",
+            "containerId": "",
+            "created": "2023-03-17T18:09:07.917Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "8a46eb14-3495-402b-babc-5b0ad958d9e5",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "create",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 2500,
+            "created": "2023-03-17T17:31:18.303Z",
+            "modified": "2023-03-17T17:35:12.010Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"book/create\",\n  \"data\": {\n    \"title\": \"test title\",\n    \"description\": \"test desc\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8e42fea7-2cf7-479c-9172-31c951202b14",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "read",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 5000,
+            "created": "2023-03-17T17:31:13.639Z",
+            "modified": "2023-03-17T17:40:01.318Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"book/read\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1cba7da2-f099-4fb0-a7b8-91cb34667d88",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
+            "name": "create",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-17T17:19:49.545Z",
+            "modified": "2023-03-17T19:52:56.259Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"action/create\",\n  \"data\": {\n    \"title\": \"test title\",\n    \"description\": \"test desc\",\n    \"bookId\": 2\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "587be229-f226-4952-a939-d84c10b2eeee",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "9f8a87cd-b879-49a6-a793-bf57ad29cc79",
+            "name": "create",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-17T17:38:00.541Z",
+            "modified": "2023-03-17T19:53:31.885Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"character/create\",\n  \"data\": {\n    \"name\": \"test name3\",\n    \"description\": \"test desc\",\n    \"bookId\": 1\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a21b255e-b781-4121-95be-48a621053c8e",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "2b3552c9-1d48-4b3b-bd2c-138223c7db11",
+            "name": "create",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-17T19:12:24.854Z",
+            "modified": "2023-03-17T19:54:41.662Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"relationship/create\",\n  \"data\": {\n    \"fromCharacterId\": 1,\n    \"toCharacterId\": 2,\n    \"description\": \"test desc\",\n    \"actionId\": 3\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4119f241-eee5-4c0d-95ba-9680c628e168",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "update",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 12500,
+            "created": "2023-03-17T17:31:04.969Z",
+            "modified": "2023-03-17T17:35:55.928Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"book/update\",\n  \"data\": {\n    \"title\": \"test title\",\n    \"description\": \"test desc\",\n    \"bookId\": 1\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a6a0ac30-d4df-44bb-8911-6e5ae32b36ec",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
+            "name": "read",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-03-17T17:19:52.478Z",
+            "modified": "2023-03-17T17:33:12.497Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"action/read\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "cbf203dc-d145-40b9-bdb4-a9793e4054ba",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "delete",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-03-17T17:31:01.485Z",
+            "modified": "2023-03-17T17:36:07.392Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"book/delete\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7366177c-4396-4e07-b9ae-d5ecd028d916",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "9f8a87cd-b879-49a6-a793-bf57ad29cc79",
+            "name": "read",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-03-17T17:38:06.971Z",
+            "modified": "2023-03-17T17:40:16.165Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"character/read\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "001602cf-74b8-45b1-9cc1-10b0aa2e677a",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "2b3552c9-1d48-4b3b-bd2c-138223c7db11",
+            "name": "read",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-03-17T19:12:33.726Z",
+            "modified": "2023-03-17T19:39:00.958Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"relationship/read\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7dfd7fc1-0b23-420c-836a-2d8d1afe01d1",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "list",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 25000,
+            "created": "2023-03-17T17:30:57.720Z",
+            "modified": "2023-03-17T18:07:04.890Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"book/list\",\n  \"data\": {\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "55c70252-ee5a-48b8-849a-b216c982559d",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
+            "name": "update",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-17T17:19:55.990Z",
+            "modified": "2023-03-17T17:33:34.364Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"action/update\",\n  \"data\": {\n    \"title\": \"test title\",\n    \"description\": \"test desc\",\n    \"bookId\": 1,\n    \"actionId\": 1\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c90a77d9-fcb1-4310-bed5-939a35fcec71",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "9f8a87cd-b879-49a6-a793-bf57ad29cc79",
+            "name": "update",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-17T17:38:12.415Z",
+            "modified": "2023-03-17T17:40:41.099Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"character/update\",\n  \"data\": {\n    \"characterId\": 1,\n    \"name\": \"test name\",\n    \"description\": \"test desc\",\n    \"bookId\": 1\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "34baee26-04d5-4776-8122-69aeb679489e",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "2b3552c9-1d48-4b3b-bd2c-138223c7db11",
+            "name": "update",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-17T19:12:38.607Z",
+            "modified": "2023-03-17T19:39:03.764Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"relationship/update\",\n  \"data\": {\n    \"characterId\": 1,\n    \"name\": \"test name\",\n    \"description\": \"test desc\",\n    \"bookId\": 1\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4340c936-25c3-4179-804f-629c18405c79",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
+            "name": "delete",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-03-17T17:20:00.534Z",
+            "modified": "2023-03-17T17:34:00.325Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"action/delete\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "03f2375f-1727-40cd-8d07-8ba7be8190d8",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "9f8a87cd-b879-49a6-a793-bf57ad29cc79",
+            "name": "delete",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-03-17T17:38:16.813Z",
+            "modified": "2023-03-17T17:40:45.525Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"character/delete\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "16ea8176-c4c5-48a0-a059-f60bfde47509",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "2b3552c9-1d48-4b3b-bd2c-138223c7db11",
+            "name": "delete",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-03-17T19:12:47.218Z",
+            "modified": "2023-03-17T19:39:06.678Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"relationship/delete\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "64b17be5-61b0-40e4-8803-41bbadde0e2f",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
+            "name": "list",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-03-17T17:20:03.557Z",
+            "modified": "2023-03-17T17:34:11.458Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"action/list\",\n  \"data\": {\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "bf7a9d93-fedf-49a2-958b-35eb25943a0d",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "actions",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-03-17T17:36:57.128Z",
+            "modified": "2023-03-17T18:07:15.971Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"book/actions\",\n  \"data\": {\n    \"bookId\": 1,\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "19d40a79-9909-4c2b-a404-0a0b220da9bc",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "9f8a87cd-b879-49a6-a793-bf57ad29cc79",
+            "name": "list",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-03-17T17:38:24.430Z",
+            "modified": "2023-03-17T18:07:25.054Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"character/list\",\n  \"data\": {\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3091628f-7985-45aa-b426-3d65ea907478",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "2b3552c9-1d48-4b3b-bd2c-138223c7db11",
+            "name": "list",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-03-17T19:12:50.727Z",
+            "modified": "2023-03-17T19:39:09.075Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"relationship/list\",\n  \"data\": {\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b9d07cdf-8411-49be-80b8-48992e9aa574",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
+            "name": "characters",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-03-17T17:37:40.003Z",
+            "modified": "2023-03-17T18:07:18.209Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"book/characters\",\n  \"data\": {\n    \"bookId\": 1,\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6b50f09c-6d18-4533-9cdd-438952611f6c",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "9f8a87cd-b879-49a6-a793-bf57ad29cc79",
+            "name": "relationships",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-03-17T17:41:39.436Z",
+            "modified": "2023-03-17T18:07:27.830Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"character/relationships\",\n  \"data\": {\n    \"characterId\": 1,\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

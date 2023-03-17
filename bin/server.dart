@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:book_notes/api/api.dart';
 import 'package:book_notes/core/endpoint.dart';
 import 'package:book_notes/core/exception/api_exception.dart';
+import 'package:book_notes/core/exception/db_exception.dart';
+import 'package:book_notes/core/exception/validation_exception.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 
@@ -17,6 +19,9 @@ FutureOr<Response> _rootHandler(Request req) async {
     }
 
     final data = await req.readAsString();
+    if (data.isEmpty) {
+      return Response(400, body: "Invalid request");
+    }
     final jsonData = jsonDecode(data);
     if (jsonData is! Map) {
       return Response(400, body: "Invalid request");
@@ -38,9 +43,15 @@ FutureOr<Response> _rootHandler(Request req) async {
             jsonData["data"];
     endpoint.validate(endpointData);
     final res = await endpoint.method(endpointData);
-    endpoint.returns?.validate(res);
-    return Response.ok(jsonEncode(res));
+    final resJsonString = jsonEncode(res);
+    final resJson = jsonDecode(resJsonString);
+    endpoint.returns?.validate(resJson);
+    return Response.ok(resJsonString);
+  } on DbException catch (e) {
+    return Response(400, body: e.message);
   } on ApiException catch (e) {
+    return Response(400, body: e.message);
+  } on ValidationException catch (e) {
     return Response(400, body: e.message);
   } catch (e) {
     print(e);

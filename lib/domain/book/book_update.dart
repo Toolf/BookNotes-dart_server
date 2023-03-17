@@ -3,14 +3,14 @@ class BookUpdate {
   final String? title;
   final String? description;
 
-  const BookUpdate._({
+  const BookUpdate({
     required this.bookId,
     required this.title,
     required this.description,
   });
 
   static BookUpdate fromJson(Map<String, dynamic> json) {
-    return BookUpdate._(
+    return BookUpdate(
       bookId: json['bookId'],
       title: json['title'],
       description: json['description'],
