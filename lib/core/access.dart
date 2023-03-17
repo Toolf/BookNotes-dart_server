@@ -1,21 +1,85 @@
-abstract class Access {}
+abstract class Access {
+  get accessName;
+
+  Access();
+
+  Map<String, dynamic> toJson();
+}
 
 class Logged implements Access {
-  const Logged();
+  Logged() : super();
+
+  @override
+  get accessName => "logged";
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "accessName": accessName,
+    };
+  }
+
+  static Logged fromJson(Map<String, dynamic> json) {
+    return Logged();
+  }
 }
 
-class Public implements Access {
-  const Public();
+class Public extends Access {
+  Public() : super();
+
+  @override
+  get accessName => "public";
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "accessName": accessName,
+    };
+  }
+
+  static Public fromJson(Map<String, dynamic> json) {
+    return Public();
+  }
 }
 
-class Group implements Access {
+class Group extends Access {
   final String name;
 
-  const Group({required this.name});
+  Group({required this.name});
+
+  @override
+  get accessName => "group";
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "accessName": accessName,
+      "name": name,
+    };
+  }
+
+  static Group fromJson(Map<String, dynamic> json) {
+    return Group(name: json['name']);
+  }
 }
 
-class Login implements Access {
-  final String name;
+class Login extends Access {
+  final int userId;
 
-  const Login({required this.name});
+  Login({required this.userId});
+
+  @override
+  get accessName => "login";
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "accessName": accessName,
+      "userId": userId,
+    };
+  }
+
+  static Login fromJson(Map<String, dynamic> json) {
+    return Login(userId: json['userId']);
+  }
 }

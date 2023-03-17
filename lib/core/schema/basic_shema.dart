@@ -12,6 +12,7 @@ class BasicSchema<T> extends SchemaBase<T> {
   final String note = "";
   final Schema? one;
   final Schema? many;
+  final bool nullable;
 
   bool get related => one != null && many != null;
 
@@ -23,10 +24,12 @@ class BasicSchema<T> extends SchemaBase<T> {
     this.maxValue,
     this.one,
     this.many,
+    this.nullable = false,
   }) : super(type ?? 'ref', (obj) => obj as T);
 
   @override
   validate(dynamic obj) {
+    if (nullable && obj == null) return;
     if (many != null) {
       if (obj is! List) {
         throw ValidationException(

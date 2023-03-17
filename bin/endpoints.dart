@@ -1,6 +1,10 @@
 part of 'server.dart';
 
 final endpoints = <String, Endpoint>{
+  // Auth
+  "auth/login": api.auth.login,
+  "auth/refresh": api.auth.refresh,
+  "auth/registry": api.auth.registry,
   // Book
   "book/list": api.book.list,
   "book/create": api.book.create,
