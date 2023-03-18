@@ -18,7 +18,7 @@ void main() {
     final bookCreateJson = fixture("book/book_create_fixture.json");
     final bookCreate = BookCreate.fromJson(bookCreateJson);
     group("Validate parameters:", () {
-      test('Given valid bookCreate model when validate then returns normaly',
+      test('Given valid bookCreate model when validate then returns normally',
           () async {
         // arrange
         // act
@@ -61,7 +61,7 @@ void main() {
     final bookJson = fixture("book/book_fixture.json");
     final book = Book.fromJson(bookJson);
     group("Validate parameters:", () {
-      test('Given valid book id when validate then returns normaly', () async {
+      test('Given valid book id when validate then returns normally', () async {
         // arrange
         // act
         // assert
@@ -105,7 +105,7 @@ void main() {
     final bookUpdated = Book.fromJson(bookUpdatedJson);
 
     group("Validate parameters:", () {
-      test('Given valid book update model when validate then returns normaly',
+      test('Given valid book update model when validate then returns normally',
           () async {
         // arrange
         // act
@@ -149,7 +149,7 @@ void main() {
     final book = Book.fromJson(bookJson);
 
     group("Validate parameters:", () {
-      test('Given valid book update model when validate then returns normaly',
+      test('Given valid book update model when validate then returns normally',
           () async {
         // arrange
         // act
@@ -173,7 +173,7 @@ void main() {
     });
 
     group("Method:", () {
-      test('Given valid book id when execute method then return delted book',
+      test('Given valid book id when execute method then return deleted book',
           () async {
         // arrange
         final expectedBook = book;
