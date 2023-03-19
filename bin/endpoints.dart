@@ -22,6 +22,7 @@ final endpoints = <String, Endpoint>{
   "action/update": api.action.update,
   "action/delete": api.action.delete,
   "action/list": api.action.list,
+  "action/notes": api.action.notes,
   // Relationship
   "relationship/create": api.relationship.create,
   "relationship/read": api.relationship.read,

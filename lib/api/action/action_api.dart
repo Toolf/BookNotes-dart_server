@@ -6,6 +6,7 @@ import '../../domain/action/action_update.dart';
 import '../../schema/action/action.dart';
 import '../../schema/action/action_create.dart';
 import '../../schema/action/action_update.dart';
+import 'notes.dart';
 
 class ActionApi {
   final CrudlApi<Action, ActionCreate, ActionUpdate> _crudl;
@@ -16,8 +17,11 @@ class ActionApi {
   get delete => _crudl.delete;
   get list => _crudl.list;
 
+  final NotesEndpoint notes;
+
   ActionApi._(
     ActionDataSource dataSource,
+    this.notes,
   ) : _crudl = CrudlApi<Action, ActionCreate, ActionUpdate>(
           datasource: dataSource,
           entitySchema: actionSchema,
@@ -28,6 +32,7 @@ class ActionApi {
   factory ActionApi(ActionDataSource dataSource) {
     return ActionApi._(
       dataSource,
+      NotesEndpoint(dataSource),
     );
   }
 }
