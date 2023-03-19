@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "BookNotes",
-    "dateExported": "2023-03-17T20:01:37.615Z",
+    "dateExported": "2023-03-19T11:50:56.269Z",
     "version": "1.1",
     "folders": [
         {
@@ -31,6 +31,13 @@
             "containerId": "",
             "created": "2023-03-17T18:09:07.917Z",
             "sortNum": 40000
+        },
+        {
+            "_id": "41a18e87-43f2-4924-ba6e-944e7efb7cb1",
+            "name": "note",
+            "containerId": "",
+            "created": "2023-03-19T11:13:45.530Z",
+            "sortNum": 50000
         }
     ],
     "requests": [
@@ -81,12 +88,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-03-17T17:19:49.545Z",
-            "modified": "2023-03-17T19:52:56.259Z",
+            "modified": "2023-03-19T11:20:19.443Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"method\": \"action/create\",\n  \"data\": {\n    \"title\": \"test title\",\n    \"description\": \"test desc\",\n    \"bookId\": 2\n  }\n}",
+                "raw": "{\n  \"method\": \"action/create\",\n  \"data\": {\n    \"title\": \"test title\",\n    \"description\": \"test desc\",\n    \"bookId\": 1\n  }\n}",
                 "form": []
             },
             "tests": []
@@ -100,7 +107,7 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-03-17T17:38:00.541Z",
-            "modified": "2023-03-17T19:53:31.885Z",
+            "modified": "2023-03-19T11:19:59.111Z",
             "headers": [],
             "params": [],
             "body": {
@@ -125,6 +132,25 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"method\": \"relationship/create\",\n  \"data\": {\n    \"fromCharacterId\": 1,\n    \"toCharacterId\": 2,\n    \"description\": \"test desc\",\n    \"actionId\": 3\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "70b582e3-40b5-4236-ae33-8474c3007542",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "41a18e87-43f2-4924-ba6e-944e7efb7cb1",
+            "name": "create",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-19T11:13:52.954Z",
+            "modified": "2023-03-19T11:43:55.162Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"note/create\",\n  \"data\": {\n    \"actionId\": 2,\n    \"text\": \"test note\"\n  }\n}",
                 "form": []
             },
             "tests": []
@@ -225,6 +251,25 @@
             "tests": []
         },
         {
+            "_id": "ab384f5f-da18-45e6-b903-64b67fe928b3",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "41a18e87-43f2-4924-ba6e-944e7efb7cb1",
+            "name": "read",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-03-19T11:13:55.837Z",
+            "modified": "2023-03-19T11:14:32.749Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"note/read\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "7dfd7fc1-0b23-420c-836a-2d8d1afe01d1",
             "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
             "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
@@ -301,6 +346,25 @@
             "tests": []
         },
         {
+            "_id": "6a7ec27f-95c5-4137-b067-bcdfba6a3429",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "41a18e87-43f2-4924-ba6e-944e7efb7cb1",
+            "name": "update",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-19T11:13:58.657Z",
+            "modified": "2023-03-19T11:24:41.638Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"note/update\",\n  \"data\": {\n    \"noteId\": 1,\n    \"actionId\": 1,\n    \"text\": \"test note\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "4340c936-25c3-4179-804f-629c18405c79",
             "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
             "containerId": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
@@ -353,6 +417,25 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"method\": \"relationship/delete\",\n  \"data\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "35482a03-12ba-4d0c-bbe1-2b18c8efa095",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "41a18e87-43f2-4924-ba6e-944e7efb7cb1",
+            "name": "delete",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-03-19T11:14:01.985Z",
+            "modified": "2023-03-19T11:14:37.110Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"note/delete\",\n  \"data\": 1\n}",
                 "form": []
             },
             "tests": []
@@ -434,6 +517,25 @@
             "tests": []
         },
         {
+            "_id": "cb16bcef-4833-408b-b4d1-88964e62ec37",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "41a18e87-43f2-4924-ba6e-944e7efb7cb1",
+            "name": "list",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-03-19T11:14:04.517Z",
+            "modified": "2023-03-19T11:14:40.077Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"note/list\",\n  \"data\": {\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
             "_id": "b9d07cdf-8411-49be-80b8-48992e9aa574",
             "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
             "containerId": "6c2f1d18-097d-4f6e-bf61-b4278cd49561",
@@ -467,6 +569,25 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"method\": \"character/relationships\",\n  \"data\": {\n    \"characterId\": 1,\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5fb6ef6b-228a-4ea9-9f2f-00cb31f737b3",
+            "colId": "3399ca78-2ee4-4fa1-81fd-e18cbc864812",
+            "containerId": "53b2405f-64ad-4570-aee3-0c6a464bfdcc",
+            "name": "notes",
+            "url": "{{server}}",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-03-19T11:35:12.350Z",
+            "modified": "2023-03-19T11:44:04.035Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"method\": \"action/notes\",\n  \"data\": {\n    \"actionId\": 2,\n    \"page\": 0,\n    \"perPage\": 10,\n    \"filter\": \"\"\n  }\n}",
                 "form": []
             },
             "tests": []
