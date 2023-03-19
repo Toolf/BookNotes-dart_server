@@ -1,3 +1,5 @@
+import 'package:book_notes/db/note_datasource.dart';
+
 import '../config/config.dart';
 import '../core/db/pg.dart';
 import 'action_datasource.dart';
@@ -10,12 +12,14 @@ class DB {
   final CharacterDataSource characterDataSource;
   final ActionDataSource actionDataSource;
   final RelationshipDataSource relationshipDataSource;
+  final NoteDataSource noteDataSource;
 
   DB._({
     required this.bookDataSource,
     required this.characterDataSource,
     required this.actionDataSource,
     required this.relationshipDataSource,
+    required this.noteDataSource,
   });
 
   factory DB() {
@@ -25,6 +29,7 @@ class DB {
       characterDataSource: CharacterDataSource(pg),
       actionDataSource: ActionDataSource(pg),
       relationshipDataSource: RelationshipDataSource(pg),
+      noteDataSource: NoteDataSource(pg),
     );
   }
 }
