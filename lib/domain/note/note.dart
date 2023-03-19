@@ -1,19 +1,19 @@
 class Note {
   final int noteId;
   final int actionId;
-  final String content;
+  final String text;
 
   Note({
     required this.noteId,
     required this.actionId,
-    required this.content,
+    required this.text,
   });
 
   static Note fromJson(Map<String, dynamic> json) {
     return Note(
       noteId: json['noteId'],
       actionId: json['actionId'],
-      content: json['content'],
+      text: json['text'],
     );
   }
 
@@ -21,7 +21,7 @@ class Note {
     return {
       'noteId': noteId,
       'actionId': actionId,
-      'content': content,
+      'text': text,
     };
   }
 }

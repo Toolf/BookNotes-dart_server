@@ -8,7 +8,7 @@ final noteUpdateSchema = SchemaView(
   [
     SchemaViewField(name: "noteId", identity: true),
     SchemaViewField(name: "actionId", nullable: true),
-    SchemaViewField(name: "content", nullable: true),
+    SchemaViewField(name: "text", nullable: true),
   ],
   (data) => NoteUpdate.fromJson(data),
 );

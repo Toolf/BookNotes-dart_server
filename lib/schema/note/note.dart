@@ -7,7 +7,7 @@ final noteSchema = Schema(
   {
     "noteId": BasicSchema(type: "integer"),
     "actionId": BasicSchema(type: "integer"),
-    "content": BasicSchema(type: "string"),
+    "text": BasicSchema(type: "string"),
   },
   (data) => Note.fromJson(data),
 );

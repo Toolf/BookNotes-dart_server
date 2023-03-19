@@ -1,23 +1,23 @@
 class NoteCreate {
   final int actionId;
-  final String content;
+  final String text;
 
   NoteCreate({
     required this.actionId,
-    required this.content,
+    required this.text,
   });
 
   static NoteCreate fromJson(Map<String, dynamic> json) {
     return NoteCreate(
       actionId: json['actionId'],
-      content: json['content'],
+      text: json['text'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'actionId': actionId,
-      'content': content,
+      'text': text,
     };
   }
 }

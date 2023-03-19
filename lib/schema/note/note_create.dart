@@ -7,7 +7,7 @@ final noteCreateSchema = SchemaView(
   noteSchema,
   [
     SchemaViewField(name: "actionId"),
-    SchemaViewField(name: "content"),
+    SchemaViewField(name: "text"),
   ],
   (data) => NoteCreate.fromJson(data),
 );
