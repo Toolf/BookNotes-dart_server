@@ -11,6 +11,7 @@ abstract class Endpoint<T, V> {
   int timeout = -1;
   bool deprecated = false;
   Access access = Logged();
+  List<String> get tags => [];
 
   void validate(T data);
 

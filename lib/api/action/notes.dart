@@ -17,6 +17,8 @@ class NotesEndpoint
   get parameters => notePaginationRequestSchema;
   @override
   get returns => PaginationResponseSchema(noteSchema);
+  @override
+  get tags => ["Action"];
 
   @override
   Future<PaginationResponse<Note>> method(

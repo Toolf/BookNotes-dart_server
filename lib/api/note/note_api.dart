@@ -23,6 +23,7 @@ class NoteApi {
           entitySchema: noteSchema,
           entityUpdateSchema: noteUpdateSchema,
           entityCreateSchema: noteCreateSchema,
+          tags: ["Note"],
         );
 
   factory NoteApi(NoteDataSource dataSource) {

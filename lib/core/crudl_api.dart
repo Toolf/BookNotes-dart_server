@@ -12,25 +12,27 @@ class CrudlApi<Entity, CreateEntity, UpdateEntity> {
   final Schema<Entity> entitySchema;
   final SchemaBase<UpdateEntity> entityUpdateSchema;
   final SchemaBase<CreateEntity> entityCreateSchema;
+  final List<String>? tags;
 
   CrudlApi({
     required this.datasource,
     required this.entitySchema,
     required this.entityUpdateSchema,
     required this.entityCreateSchema,
+    this.tags,
   });
 
   CreateEndpoint<CreateEntity, CreateDatasource<CreateEntity>> get create =>
-      CreateEndpoint(entityCreateSchema, datasource);
+      CreateEndpoint(entityCreateSchema, datasource, tags);
   ReadEndpoint<Entity, ReadDatasource<Entity>> get read =>
-      ReadEndpoint(entitySchema, datasource);
+      ReadEndpoint(entitySchema, datasource, tags);
   UpdateEndpoint<Entity, UpdateEntity, UpdateDatasource<Entity, UpdateEntity>>
       get update =>
-          UpdateEndpoint(entitySchema, entityUpdateSchema, datasource);
+          UpdateEndpoint(entitySchema, entityUpdateSchema, datasource, tags);
   DeleteEndpoint<Entity, DeleteDatasource<Entity>> get delete =>
-      DeleteEndpoint(entitySchema, datasource);
+      DeleteEndpoint(entitySchema, datasource, tags);
   ListEndpoint<Entity, ListDatasource<Entity>> get list =>
-      ListEndpoint(entitySchema, datasource);
+      ListEndpoint(entitySchema, datasource, tags);
 }
 
 class CreateEndpoint<CreateEntity,
@@ -38,13 +40,16 @@ class CreateEndpoint<CreateEntity,
     extends Endpoint<CreateEntity, int> {
   final SchemaBase<CreateEntity> param;
   final DataSource dataSource;
+  final List<String>? _tags;
 
-  CreateEndpoint(this.param, this.dataSource);
+  CreateEndpoint(this.param, this.dataSource, [this._tags]);
 
   @override
   SchemaBase<CreateEntity>? get parameters => param;
   @override
   SchemaBase<int>? get returns => intSchema;
+  @override
+  List<String> get tags => _tags ?? [];
 
   @override
   Future<int> method(CreateEntity data) async {
@@ -60,13 +65,16 @@ class ReadEndpoint<Entity, DataSource extends ReadDatasource<Entity>>
     extends Endpoint<int, Entity> {
   final SchemaBase<Entity> entitySchema;
   final DataSource dataSource;
+  final List<String>? _tags;
 
-  ReadEndpoint(this.entitySchema, this.dataSource);
+  ReadEndpoint(this.entitySchema, this.dataSource, [this._tags]);
 
   @override
   SchemaBase<int>? get parameters => intSchema;
   @override
   SchemaBase<Entity>? get returns => entitySchema;
+  @override
+  List<String> get tags => _tags ?? [];
 
   @override
   Future<Entity> method(int entityId) async {
@@ -88,13 +96,16 @@ class UpdateEndpoint<Entity, UpdateEntity,
   final SchemaBase<Entity> entitySchema;
   final SchemaBase<UpdateEntity> param;
   final DataSource dataSource;
+  final List<String>? _tags;
 
-  UpdateEndpoint(this.entitySchema, this.param, this.dataSource);
+  UpdateEndpoint(this.entitySchema, this.param, this.dataSource, [this._tags]);
 
   @override
   SchemaBase<UpdateEntity>? get parameters => param;
   @override
   SchemaBase<Entity>? get returns => entitySchema;
+  @override
+  List<String> get tags => _tags ?? [];
 
   @override
   Future<Entity> method(UpdateEntity updateEntity) async {
@@ -110,13 +121,16 @@ class DeleteEndpoint<Entity, DataSource extends DeleteDatasource<Entity>>
     extends Endpoint<int, Entity> {
   final SchemaBase<Entity> entitySchema;
   final DataSource dataSource;
+  final List<String>? _tags;
 
-  DeleteEndpoint(this.entitySchema, this.dataSource);
+  DeleteEndpoint(this.entitySchema, this.dataSource, [this._tags]);
 
   @override
   SchemaBase<int>? get parameters => intSchema;
   @override
   SchemaBase<Entity>? get returns => entitySchema;
+  @override
+  List<String> get tags => _tags ?? [];
 
   @override
   Future<Entity> method(int entityId) async {
@@ -136,14 +150,17 @@ class ListEndpoint<Entity, DataSource extends ListDatasource<Entity>>
     extends Endpoint<PaginationRequest, PaginationResponse<Entity>> {
   final Schema<Entity> entitySchema;
   final DataSource dataSource;
+  final List<String>? _tags;
 
-  ListEndpoint(this.entitySchema, this.dataSource);
+  ListEndpoint(this.entitySchema, this.dataSource, [this._tags]);
 
   @override
   SchemaBase<PaginationRequest>? get parameters => paginationRequestSchema;
   @override
   SchemaBase<PaginationResponse<Entity>>? get returns =>
       PaginationResponseSchema(entitySchema);
+  @override
+  List<String> get tags => _tags ?? [];
 
   @override
   Future<PaginationResponse<Entity>> method(PaginationRequest request) async {

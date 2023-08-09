@@ -17,6 +17,8 @@ class RelationshipsEndpoint extends Endpoint<RelationshipPaginationRequest,
   get parameters => relationshipPaginationRequestSchema;
   @override
   get returns => PaginationResponseSchema(relationshipSchema);
+  @override
+  get tags => ["Character"];
 
   @override
   Future<PaginationResponse<Relationship>> method(
