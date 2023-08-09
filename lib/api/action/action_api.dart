@@ -27,6 +27,7 @@ class ActionApi {
           entitySchema: actionSchema,
           entityUpdateSchema: actionUpdateSchema,
           entityCreateSchema: actionCreateSchema,
+          tags: ["Action"],
         );
 
   factory ActionApi(ActionDataSource dataSource) {

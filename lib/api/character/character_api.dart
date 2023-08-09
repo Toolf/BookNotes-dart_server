@@ -31,6 +31,7 @@ class CharacterApi {
           entitySchema: characterSchema,
           entityUpdateSchema: characterUpdateSchema,
           entityCreateSchema: characterCreateSchema,
+          tags: ["Character"],
         ),
         relationships = RelationshipsEndpoint(dataSource);
 

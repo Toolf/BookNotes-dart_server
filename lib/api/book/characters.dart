@@ -18,6 +18,8 @@ class CharactersEndpoint extends Endpoint<CharacterPaginationRequest,
   get parameters => characterPaginationRequestSchema;
   @override
   get returns => PaginationResponseSchema(characterSchema);
+  @override
+  get tags => ["Book"];
 
   @override
   Future<PaginationResponse<Character>> method(

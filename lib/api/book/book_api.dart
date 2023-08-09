@@ -29,6 +29,7 @@ class BookApi {
           entitySchema: bookSchema,
           entityUpdateSchema: bookUpdateSchema,
           entityCreateSchema: bookCreateSchema,
+          tags: ["Book"],
         );
 
   factory BookApi(BookDataSource dataSource) {

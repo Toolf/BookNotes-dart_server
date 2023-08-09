@@ -16,7 +16,7 @@ class PaginationResponseSchema<T> extends Schema<PaginationResponse<T>> {
   PaginationResponseSchema(
     Schema<T> typeSchema,
   ) : super(
-          "PaginationRequest_${typeSchema.name}",
+          "PaginationResponse_${typeSchema.name}",
           {
             "page": BasicSchema(type: "integer", minValue: 0),
             "perPage": BasicSchema(type: "integer", minValue: 1),

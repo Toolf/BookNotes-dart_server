@@ -23,6 +23,7 @@ class RelationshipApi {
           entitySchema: relationshipSchema,
           entityUpdateSchema: relationshipUpdateSchema,
           entityCreateSchema: relationshipCreateSchema,
+          tags: ["Relationship"],
         );
 
   factory RelationshipApi(RelationshipDataSource dataSource) {

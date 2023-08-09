@@ -17,6 +17,8 @@ class ActionsEndpoint
   get parameters => actionPaginationRequestSchema;
   @override
   get returns => PaginationResponseSchema(actionSchema);
+  @override
+  get tags => ["Book"];
 
   @override
   Future<PaginationResponse<Action>> method(

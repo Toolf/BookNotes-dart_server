@@ -7,13 +7,59 @@ import 'package:book_notes/core/endpoint.dart';
 import 'package:book_notes/core/exception/api_exception.dart';
 import 'package:book_notes/core/exception/db_exception.dart';
 import 'package:book_notes/core/exception/validation_exception.dart';
+import 'package:book_notes/core/schema/basic_schema.dart';
+import 'package:book_notes/core/schema/schema.dart';
+import 'package:book_notes/core/schema/schema_base.dart';
+import 'package:book_notes/core/schema/schema_view.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 
+import 'swagger.dart';
+
 part 'endpoints.dart';
+part 'openapi.dart';
 
 FutureOr<Response> _rootHandler(Request req) async {
   try {
+    // Swagger
+    if (req.method == "GET") {
+      print(req.url.path);
+      if (req.url.path == "openapi.json") {
+        return Response.ok(
+          jsonEncode(OpenApiSchema(
+                endpoints: endpoints,
+                title: "BookNotes",
+                version: "0.1.0",
+              )) +
+              "\n",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        );
+      }
+      if (req.url.path == "docs") {
+        return Response.ok(
+          getSwaggerUiHtml(
+            openapiUrl: "/openapi.json",
+            title: "BookNotes",
+            oauth2RedirectUrl: "/docs/oauth2-redirect",
+            swaggerUiParameters: {
+              "dom_id": "#swagger-ui",
+              "layout": "BaseLayout",
+              "deepLinking": true,
+              "showExtensions": true,
+              "showCommonExtensions": true,
+            },
+          ),
+          headers: {
+            "Content-Type": "text/html",
+            "Cache-Control": "private, max-age=3000",
+          },
+        );
+      }
+    }
+
+    // Main logic
     if (req.method != "POST") {
       return Response(400, body: "Invalid method");
     }

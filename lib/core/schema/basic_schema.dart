@@ -13,7 +13,7 @@ class BasicSchema<T> extends SchemaBase<T> {
   final Schema? one;
   final Schema? many;
 
-  bool get related => one != null && many != null;
+  bool get related => one != null || many != null;
 
   BasicSchema({
     this.type = 'related',
