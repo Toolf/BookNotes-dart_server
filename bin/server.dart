@@ -27,11 +27,10 @@ FutureOr<Response> _rootHandler(Request req) async {
       if (req.url.path == "openapi.json") {
         return Response.ok(
           jsonEncode(OpenApiSchema(
-                endpoints: endpoints,
-                title: "BookNotes",
-                version: "0.1.0",
-              )) +
-              "\n",
+            endpoints: endpoints,
+            title: "BookNotes",
+            version: "0.1.0",
+          )),
           headers: {
             "Content-Type": "application/json",
           },
@@ -42,7 +41,7 @@ FutureOr<Response> _rootHandler(Request req) async {
           getSwaggerUiHtml(
             openapiUrl: "/openapi.json",
             title: "BookNotes",
-            oauth2RedirectUrl: "/docs/oauth2-redirect",
+            // oauth2RedirectUrl: "/docs/oauth2-redirect",
             swaggerUiParameters: {
               "dom_id": "#swagger-ui",
               "layout": "BaseLayout",
