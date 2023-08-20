@@ -14,6 +14,7 @@ import 'package:book_notes/core/schema/schema_view.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 
+import 'cors.dart';
 import 'swagger.dart';
 
 part 'endpoints.dart';
@@ -105,8 +106,20 @@ FutureOr<Response> _rootHandler(Request req) async {
 }
 
 void main(List<String> args) async {
+  var handler = const Pipeline()
+      .addMiddleware(logRequests())
+      .addMiddleware(
+        corsHeaders(
+          headers: {
+            ACCESS_CONTROL_ALLOW_ORIGIN: '*',
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        ),
+      )
+      .addHandler(_rootHandler);
+
   final ip = InternetAddress.anyIPv4;
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
-  final server = await serve(_rootHandler, ip, port);
+  final server = await serve(handler, ip, port);
   print('Server listening on port ${server.port}');
 }
