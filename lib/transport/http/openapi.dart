@@ -1,4 +1,8 @@
-part of 'server.dart';
+import 'package:book_notes/core/endpoint.dart';
+import 'package:book_notes/core/schema/basic_schema.dart';
+import 'package:book_notes/core/schema/schema.dart';
+import 'package:book_notes/core/schema/schema_base.dart';
+import 'package:book_notes/core/schema/schema_view.dart';
 
 class OpenApiSchema {
   final String title;

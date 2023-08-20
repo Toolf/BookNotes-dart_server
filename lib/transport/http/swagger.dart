@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:book_notes/core/endpoint.dart';
+import 'package:shelf/shelf.dart';
+
+import 'openapi.dart';
+
 String getSwaggerUiHtml({
   required String openapiUrl,
   required String title,
@@ -54,4 +59,46 @@ String getSwaggerUiHtml({
     </html>
     """;
   return html;
+}
+
+Middleware swagger(Map<String, Endpoint> endpoints) {
+  return (Handler handler) {
+    return (Request req) {
+      if (req.method == "GET") {
+        if (req.url.path == "openapi.json") {
+          return Response.ok(
+            jsonEncode(OpenApiSchema(
+              endpoints: endpoints,
+              title: "BookNotes",
+              version: "0.1.0",
+            )),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          );
+        }
+        if (req.url.path == "docs") {
+          return Response.ok(
+            getSwaggerUiHtml(
+              openapiUrl: "/openapi.json",
+              title: "BookNotes",
+              // oauth2RedirectUrl: "/docs/oauth2-redirect",
+              swaggerUiParameters: {
+                "dom_id": "#swagger-ui",
+                "layout": "BaseLayout",
+                "deepLinking": true,
+                "showExtensions": true,
+                "showCommonExtensions": true,
+              },
+            ),
+            headers: {
+              "Content-Type": "text/html",
+              "Cache-Control": "private, max-age=3000",
+            },
+          );
+        }
+      }
+      return handler(req);
+    };
+  };
 }
