@@ -16,7 +16,7 @@ class PaginationResponseSchema<T> extends Schema<PaginationResponse<T>> {
   PaginationResponseSchema(
     Schema<T> typeSchema,
   ) : super(
-          "PaginationResponse_${typeSchema.name}",
+          "${typeSchema.name}PaginationResponse",
           {
             "page": BasicSchema(type: "integer", minValue: 0),
             "perPage": BasicSchema(type: "integer", minValue: 1),
@@ -28,6 +28,7 @@ class PaginationResponseSchema<T> extends Schema<PaginationResponse<T>> {
           (dynamic json) {
             final data = (json['data'] as List)
                 .map(typeSchema.entityConstructor)
+                .whereType<T>()
                 .toList();
 
             return PaginationResponse(

@@ -1,7 +1,7 @@
 import '../../core/endpoint.dart';
 import '../../core/pagination/pagination.dart';
 import '../../core/pagination/pagination_schema.dart';
-import '../../db/action_datasource.dart';
+import '../../db/db.dart';
 import '../../domain/action/note_pagination_request.dart';
 import '../../domain/note/note.dart';
 import '../../schema/action/note_pagination_request.dart';
@@ -9,9 +9,9 @@ import '../../schema/note/note.dart';
 
 class NotesEndpoint
     extends Endpoint<NotePaginationRequest, PaginationResponse<Note>> {
-  final ActionDataSource dataSource;
+  final DB db;
 
-  NotesEndpoint(this.dataSource);
+  NotesEndpoint(this.db);
 
   @override
   get parameters => notePaginationRequestSchema;
@@ -24,7 +24,7 @@ class NotesEndpoint
   Future<PaginationResponse<Note>> method(
     NotePaginationRequest request,
   ) async {
-    final notes = await dataSource.notes(request);
+    final notes = await db.action.notes(request);
     return notes;
   }
 

@@ -8,7 +8,7 @@ class Schema<Entity> extends SchemaBase<Entity> {
   Schema(
     String name,
     this.fields,
-    Entity Function(dynamic obj) entityConstructor,
+    Entity? Function(dynamic obj) entityConstructor,
   ) : super(name, entityConstructor);
 
   @override

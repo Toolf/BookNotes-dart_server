@@ -22,11 +22,11 @@ class Api {
 
   factory Api() {
     return Api._(
-      book: BookApi(db.bookDataSource),
-      character: CharacterApi(db.characterDataSource),
-      action: ActionApi(db.actionDataSource),
-      relationship: RelationshipApi(db.relationshipDataSource),
-      note: NoteApi(db.noteDataSource),
+      book: BookApi(db),
+      character: CharacterApi(db),
+      action: ActionApi(db),
+      relationship: RelationshipApi(db),
+      note: NoteApi(db),
     );
   }
 }

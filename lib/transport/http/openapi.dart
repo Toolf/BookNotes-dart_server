@@ -17,6 +17,64 @@ class OpenApiSchema {
     required this.endpoints,
   });
 
+  Set<SchemaBase> getInnerSchemas(SchemaBase schema) {
+    final allSchemas = <SchemaBase>{};
+    final queue = <SchemaBase>[schema];
+
+    while (queue.isNotEmpty) {
+      final current = queue.removeLast();
+
+      if (current is BasicSchema) {
+        continue;
+      } else if (current is Schema) {
+        for (var field in current.fields.values) {
+          if (field.related && allSchemas.add((field.one ?? field.many)!)) {
+            queue.add((field.one ?? field.many)!);
+          }
+        }
+      } else if (current is SchemaView) {
+        if (allSchemas.add(current.base)) {
+          queue.add(current.base);
+        }
+      }
+    }
+
+    return allSchemas;
+  }
+
+  List<SchemaBase> getEndpointSchemas() {
+    final initialSchemas = <SchemaBase>{};
+
+    for (var e in endpoints.values) {
+      final returns = e.returns;
+      if (returns != null && returns is! BasicSchema) {
+        initialSchemas.add(returns);
+      }
+
+      final params = e.parameters;
+      if (params != null && params is! BasicSchema) initialSchemas.add(params);
+    }
+
+    final allSchemas = <SchemaBase>{};
+    final queue = List<SchemaBase>.from(initialSchemas);
+
+    while (queue.isNotEmpty) {
+      final current = queue.removeLast();
+      if (allSchemas.add(current)) {
+        for (var inner in getInnerSchemas(current)) {
+          if (!allSchemas.contains(inner)) {
+            queue.add(inner);
+          }
+        }
+      }
+    }
+
+    final sorted = allSchemas.toList()
+      ..sort((a, b) => a.name.compareTo(b.name));
+
+    return sorted;
+  }
+
   Map<String, dynamic> toJson() {
     final info = <String, dynamic>{
       "title": title,
@@ -95,20 +153,7 @@ class OpenApiSchema {
       },
       "components": {
         "schemas": {
-          for (final schema in [
-            ...endpoints.values
-                .where((e) => e.returns != null)
-                .where((e) => e.returns is! BasicSchema)
-                .map(
-                  (e) => e.returns!,
-                ),
-            ...endpoints.values
-                .where((e) => e.parameters != null)
-                .where((e) => e.parameters is! BasicSchema)
-                .map(
-                  (e) => e.parameters!,
-                )
-          ]..sort((e1, e2) => e1.name.compareTo(e2.name)))
+          for (final schema in getEndpointSchemas())
             schema.name: OpenapiSchemaBase(schema).toJson(),
         }
       }

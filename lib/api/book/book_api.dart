@@ -1,5 +1,6 @@
 import '../../core/crudl_api.dart';
 import '../../db/book_datasource.dart';
+import '../../db/db.dart';
 import '../../domain/book/book.dart';
 import '../../domain/book/book_create.dart';
 import '../../domain/book/book_update.dart';
@@ -21,22 +22,22 @@ class BookApi {
   get list => _crudl.list;
 
   BookApi._(
-    BookDataSource dataSource,
+    DB db,
     this.characters,
     this.actions,
   ) : _crudl = CrudlApi<Book, BookCreate, BookUpdate>(
-          datasource: dataSource,
+          datasource: db.book,
           entitySchema: bookSchema,
           entityUpdateSchema: bookUpdateSchema,
           entityCreateSchema: bookCreateSchema,
           tags: ["Book"],
         );
 
-  factory BookApi(BookDataSource dataSource) {
+  factory BookApi(DB db) {
     return BookApi._(
-      dataSource,
-      CharactersEndpoint(dataSource),
-      ActionsEndpoint(dataSource),
+      db,
+      CharactersEndpoint(db),
+      ActionsEndpoint(db),
     );
   }
 }

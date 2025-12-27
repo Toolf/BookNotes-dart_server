@@ -1,5 +1,6 @@
 import '../../core/crudl_api.dart';
 import '../../db/action_datasource.dart';
+import '../../db/db.dart';
 import '../../domain/action/action.dart';
 import '../../domain/action/action_create.dart';
 import '../../domain/action/action_update.dart';
@@ -20,20 +21,17 @@ class ActionApi {
   final NotesEndpoint notes;
 
   ActionApi._(
-    ActionDataSource dataSource,
+    DB db,
     this.notes,
   ) : _crudl = CrudlApi<Action, ActionCreate, ActionUpdate>(
-          datasource: dataSource,
+          datasource: db.action,
           entitySchema: actionSchema,
           entityUpdateSchema: actionUpdateSchema,
           entityCreateSchema: actionCreateSchema,
           tags: ["Action"],
         );
 
-  factory ActionApi(ActionDataSource dataSource) {
-    return ActionApi._(
-      dataSource,
-      NotesEndpoint(dataSource),
-    );
+  factory ActionApi(DB db) {
+    return ActionApi._(db, NotesEndpoint(db));
   }
 }

@@ -2,6 +2,7 @@ import '../../core/crudl_api.dart';
 import '../../core/endpoint.dart';
 import '../../core/pagination/pagination.dart';
 import '../../db/character_datasource.dart';
+import '../../db/db.dart';
 import '../../domain/character/character.dart';
 import '../../domain/character/character_create.dart';
 import '../../domain/character/character_update.dart';
@@ -25,19 +26,17 @@ class CharacterApi {
       PaginationResponse<Relationship>> relationships;
 
   CharacterApi._(
-    CharacterDataSource dataSource,
+    DB db,
   )   : _crudl = CrudlApi<Character, CharacterCreate, CharacterUpdate>(
-          datasource: dataSource,
+          datasource: db.character,
           entitySchema: characterSchema,
           entityUpdateSchema: characterUpdateSchema,
           entityCreateSchema: characterCreateSchema,
           tags: ["Character"],
         ),
-        relationships = RelationshipsEndpoint(dataSource);
+        relationships = RelationshipsEndpoint(db);
 
-  factory CharacterApi(CharacterDataSource dataSource) {
-    return CharacterApi._(
-      dataSource,
-    );
+  factory CharacterApi(DB db) {
+    return CharacterApi._(db);
   }
 }

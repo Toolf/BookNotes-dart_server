@@ -1,7 +1,7 @@
 import '../../core/endpoint.dart';
 import '../../core/pagination/pagination.dart';
 import '../../core/pagination/pagination_schema.dart';
-import '../../db/character_datasource.dart';
+import '../../db/db.dart';
 import '../../domain/character/relationship_pagination_request.dart';
 import '../../domain/relationship/relationship.dart';
 import '../../schema/character/relationship_pagination_request.dart';
@@ -9,9 +9,9 @@ import '../../schema/relationship/relationship.dart';
 
 class RelationshipsEndpoint extends Endpoint<RelationshipPaginationRequest,
     PaginationResponse<Relationship>> {
-  final CharacterDataSource dataSource;
+  final DB db;
 
-  RelationshipsEndpoint(this.dataSource);
+  RelationshipsEndpoint(this.db);
 
   @override
   get parameters => relationshipPaginationRequestSchema;
@@ -24,7 +24,7 @@ class RelationshipsEndpoint extends Endpoint<RelationshipPaginationRequest,
   Future<PaginationResponse<Relationship>> method(
     RelationshipPaginationRequest request,
   ) async {
-    final relationship = await dataSource.relationships(request);
+    final relationship = await db.character.relationships(request);
     return relationship;
   }
 

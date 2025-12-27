@@ -8,28 +8,28 @@ import 'character_datasource.dart';
 import 'relationship_datasource.dart';
 
 class DB {
-  final BookDataSource bookDataSource;
-  final CharacterDataSource characterDataSource;
-  final ActionDataSource actionDataSource;
-  final RelationshipDataSource relationshipDataSource;
-  final NoteDataSource noteDataSource;
+  final BookDataSource book;
+  final CharacterDataSource character;
+  final ActionDataSource action;
+  final RelationshipDataSource relationship;
+  final NoteDataSource note;
 
   DB._({
-    required this.bookDataSource,
-    required this.characterDataSource,
-    required this.actionDataSource,
-    required this.relationshipDataSource,
-    required this.noteDataSource,
+    required this.book,
+    required this.character,
+    required this.action,
+    required this.relationship,
+    required this.note,
   });
 
   factory DB() {
     final pg = PostgresConnectionFactory(config.pgConfig);
     return DB._(
-      bookDataSource: BookDataSource(pg),
-      characterDataSource: CharacterDataSource(pg),
-      actionDataSource: ActionDataSource(pg),
-      relationshipDataSource: RelationshipDataSource(pg),
-      noteDataSource: NoteDataSource(pg),
+      book: BookDataSource(pg),
+      character: CharacterDataSource(pg),
+      action: ActionDataSource(pg),
+      relationship: RelationshipDataSource(pg),
+      note: NoteDataSource(pg),
     );
   }
 }

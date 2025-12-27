@@ -1,5 +1,5 @@
 import '../../core/crudl_api.dart';
-import '../../db/note_datasource.dart';
+import '../../db/db.dart';
 import '../../domain/note/note.dart';
 import '../../domain/note/note_create.dart';
 import '../../domain/note/note_update.dart';
@@ -17,18 +17,16 @@ class NoteApi {
   get list => _crudl.list;
 
   NoteApi._(
-    NoteDataSource dataSource,
+    DB db,
   ) : _crudl = CrudlApi<Note, NoteCreate, NoteUpdate>(
-          datasource: dataSource,
+          datasource: db.note,
           entitySchema: noteSchema,
           entityUpdateSchema: noteUpdateSchema,
           entityCreateSchema: noteCreateSchema,
           tags: ["Note"],
         );
 
-  factory NoteApi(NoteDataSource dataSource) {
-    return NoteApi._(
-      dataSource,
-    );
+  factory NoteApi(DB db) {
+    return NoteApi._(db);
   }
 }
