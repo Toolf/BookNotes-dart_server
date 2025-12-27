@@ -33,7 +33,7 @@ class ActionDataSource
     try {
       await connection.open();
       final fieldsNames = noteSchema.fields.entries
-          .where((f) => !f.value.related)
+          .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();
       return await connection.transaction((conn) async {

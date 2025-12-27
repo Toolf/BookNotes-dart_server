@@ -56,7 +56,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
       await connection.open();
 
       final fieldsNames = entitySchema.fields.entries
-          .where((f) => !f.value.related)
+          .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();
       final res = await connection.mappedResultsQuery(
@@ -119,7 +119,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
     try {
       await connection.open();
       final fieldsNames = entitySchema.fields.entries
-          .where((f) => !f.value.related)
+          .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();
       return await connection.transaction((conn) async {

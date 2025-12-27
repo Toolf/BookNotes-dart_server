@@ -28,7 +28,7 @@ class OpenApiSchema {
         continue;
       } else if (current is Schema) {
         for (var field in current.fields.values) {
-          if (field.related && allSchemas.add((field.one ?? field.many)!)) {
+          if (field.isObject && allSchemas.add((field.one ?? field.many)!)) {
             queue.add((field.one ?? field.many)!);
           }
         }
@@ -188,7 +188,7 @@ class OpenapiBasicSchema implements OpenapiSchemaBase {
 
   @override
   Map<String, dynamic> toJson() {
-    if (schema.related) {
+    if (schema.isObject) {
       return schema.one == null
           ? {
               "\$ref": "#/components/schemas/${schema.many!.name}",
@@ -245,7 +245,7 @@ class OpenapiSchemaView implements OpenapiSchemaBase {
       "title": schema.name,
       "properties": {
         for (final field in schema.fields)
-          field.name: schema.base.fields[field.name]!.related
+          field.name: schema.base.fields[field.name]!.isObject
               ? "#/components/schemas/${field.name}"
               : OpenapiSchemaBase(schema.base.fields[field.name]!).toJson(),
       },
