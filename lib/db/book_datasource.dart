@@ -37,8 +37,8 @@ class BookDataSource
     try {
       await connection.open();
       final fieldsNames = characterSchema.fields.entries
-          .whereType<MapEntry<String, BasicSchema>>()
-          .where((f) => !f.value.isObject)
+          .where((f) => f.value is BasicSchema)
+          .where((f) => !(f.value as BasicSchema).isObject)
           .map((f) => f.key)
           .toList();
       return await connection.transaction((conn) async {
@@ -94,8 +94,8 @@ class BookDataSource
     try {
       await connection.open();
       final fieldsNames = actionSchema.fields.entries
-          .whereType<MapEntry<String, BasicSchema>>()
-          .where((f) => !f.value.isObject)
+          .where((f) => f.value is BasicSchema)
+          .where((f) => !(f.value as BasicSchema).isObject)
           .map((f) => f.key)
           .toList();
       return await connection.transaction((conn) async {

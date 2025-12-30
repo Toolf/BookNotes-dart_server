@@ -1,5 +1,6 @@
 import 'package:book_notes/api/book/book_api.dart';
 import 'package:book_notes/core/exception/validation_exception.dart';
+import 'package:book_notes/db/db.dart';
 import 'package:book_notes/domain/book/book.dart';
 import 'package:book_notes/domain/book/book_create.dart';
 import 'package:book_notes/domain/book/book_update.dart';
@@ -10,7 +11,15 @@ import '../../fixture/fixture_reader.dart';
 import '../../mock/db/db_mock.dart';
 
 void main() {
-  final db = DbMock();
+  final db = DB(
+    user: UserDataSourceMock(),
+    userGroup: UserGroupDataSourceMock(),
+    book: BookDataSourceMock(),
+    character: CharacterDataSourceMock(),
+    action: ActionDataSourceMock(),
+    relationship: RelationshipDataSourceMock(),
+    note: NoteDataSourceMock(),
+  );
 
   final bookApi = BookApi(db);
 

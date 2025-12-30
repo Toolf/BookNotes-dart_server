@@ -15,20 +15,25 @@ void main() {
   final testPgConfig = PgConfig(
     url: "localhost",
     port: 5432,
-    database: "testDb",
-    username: "testUser",
-    password: "testPassword",
+    database: "application",
+    username: "toolf",
+    password: "toolf",
   );
   final connectionFactory = PostgresConnectionFactory(testPgConfig);
 
-  setUp(() {
-    bookDataSource = BookDataSource(connectionFactory);
-  });
-
-  setUpAll(() async {
+  Future<void> clearDB() async {
     final connection = connectionFactory.createConnection();
     await connection.open();
     await connection.execute("DELETE FROM \"$tableName\"");
+  }
+
+  setUp(() {
+    bookDataSource = BookDataSource(connectionFactory);
+    clearDB();
+  });
+
+  tearDown(() async {
+    clearDB();
   });
 
   group("Create book:", () {
@@ -38,6 +43,7 @@ void main() {
       // arrange
       // act
       final bookId = await bookDataSource.create(bookCreate);
+      print(bookId);
       // assert
       final expexted = await bookDataSource.read(bookId);
       expect(bookCreate.description, expexted.description);

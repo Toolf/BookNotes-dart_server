@@ -18,7 +18,7 @@ class DB {
   final RelationshipDataSource relationship;
   final NoteDataSource note;
 
-  DB._({
+  DB({
     required this.user,
     required this.userGroup,
     required this.book,
@@ -28,9 +28,9 @@ class DB {
     required this.note,
   });
 
-  factory DB() {
+  factory DB.postgres() {
     final pg = PostgresConnectionFactory(config.pgConfig);
-    return DB._(
+    return DB(
       user: UserDataSource(pg),
       userGroup: UserGroupDataSource(pg),
       book: BookDataSource(pg),
@@ -42,4 +42,4 @@ class DB {
   }
 }
 
-final db = DB();
+final db = DB.postgres();
