@@ -2,6 +2,7 @@ import '../core/db/pg.dart';
 import '../core/db/postgres_crudl_datasource.dart';
 import '../core/exception/db_exception.dart';
 import '../core/pagination/pagination.dart';
+import '../core/schema/basic_schema.dart';
 import '../domain/action/action.dart';
 import '../domain/book/action_pagination_request.dart';
 import '../domain/book/book.dart';
@@ -36,6 +37,7 @@ class BookDataSource
     try {
       await connection.open();
       final fieldsNames = characterSchema.fields.entries
+          .whereType<MapEntry<String, BasicSchema>>()
           .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();
@@ -92,6 +94,7 @@ class BookDataSource
     try {
       await connection.open();
       final fieldsNames = actionSchema.fields.entries
+          .whereType<MapEntry<String, BasicSchema>>()
           .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();

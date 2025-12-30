@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:book_notes/core/schema/basic_schema.dart';
+
 import '../exception/db_exception.dart';
 import '../pagination/pagination.dart';
 import '../schema/schema.dart';
@@ -15,10 +17,10 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
   final Schema<Entity> entitySchema;
   final SchemaView<CreateEntity> createEntitySchema;
   final SchemaView<UpdateEntity> updateEntitySchema;
-  final Entity Function(dynamic obj) entityConstructor;
+  final Entity Function(dynamic obj) parse;
 
   PostgresCrudlDatasource(
-    this.entityConstructor,
+    this.parse,
     this.entitySchema,
     this.createEntitySchema,
     this.updateEntitySchema,
@@ -56,6 +58,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
       await connection.open();
 
       final fieldsNames = entitySchema.fields.entries
+          .whereType<MapEntry<String, BasicSchema>>()
           .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();
@@ -72,7 +75,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
       }
       final entityData = res.single[tableName]!;
 
-      return entityConstructor(entityData);
+      return parse(entityData);
     } catch (e) {
       if (e is DbException) {
         rethrow;
@@ -101,7 +104,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
         throw DbException("Not found entity", null);
       }
       final entityData = res.single[tableName]!;
-      return entityConstructor(entityData);
+      return parse(entityData);
     } catch (e) {
       if (e is DbException) {
         rethrow;
@@ -119,6 +122,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
     try {
       await connection.open();
       final fieldsNames = entitySchema.fields.entries
+          .whereType<MapEntry<String, BasicSchema>>()
           .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();
@@ -133,7 +137,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
             });
         final entities = res.map((entityMap) {
           final entityData = entityMap[tableName]!;
-          return entityConstructor(entityData);
+          return parse(entityData);
         }).toList();
 
         final totalResult = await conn.query(
@@ -182,7 +186,7 @@ class PostgresCrudlDatasource<Entity, CreateEntity, UpdateEntity>
         throw DbException("Not found entity", null);
       }
       final entityData = res.single[tableName]!;
-      return entityConstructor(entityData);
+      return parse(entityData);
     } catch (e) {
       if (e is DbException) {
         rethrow;

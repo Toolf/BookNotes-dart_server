@@ -1,4 +1,5 @@
 import 'package:book_notes/db/note_datasource.dart';
+import 'package:book_notes/db/user_datasource.dart';
 
 import '../config/config.dart';
 import '../core/db/pg.dart';
@@ -6,8 +7,11 @@ import 'action_datasource.dart';
 import 'book_datasource.dart';
 import 'character_datasource.dart';
 import 'relationship_datasource.dart';
+import 'user_group_datasource.dart';
 
 class DB {
+  final UserDataSource user;
+  final UserGroupDataSource userGroup;
   final BookDataSource book;
   final CharacterDataSource character;
   final ActionDataSource action;
@@ -15,6 +19,8 @@ class DB {
   final NoteDataSource note;
 
   DB._({
+    required this.user,
+    required this.userGroup,
     required this.book,
     required this.character,
     required this.action,
@@ -25,6 +31,8 @@ class DB {
   factory DB() {
     final pg = PostgresConnectionFactory(config.pgConfig);
     return DB._(
+      user: UserDataSource(pg),
+      userGroup: UserGroupDataSource(pg),
       book: BookDataSource(pg),
       character: CharacterDataSource(pg),
       action: ActionDataSource(pg),

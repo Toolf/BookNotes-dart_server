@@ -1,15 +1,14 @@
 import '../exception/validation_exception.dart';
-import 'basic_schema.dart';
 import 'schema_base.dart';
 
 class Schema<Entity> extends SchemaBase<Entity> {
-  final Map<String, BasicSchema> fields;
+  final Map<String, SchemaBase> fields;
 
   Schema(
     String name,
     this.fields,
-    Entity? Function(dynamic obj) entityConstructor,
-  ) : super(name, entityConstructor);
+    Entity? Function(dynamic obj) parse,
+  ) : super(name, parse);
 
   @override
   validate(dynamic obj) {

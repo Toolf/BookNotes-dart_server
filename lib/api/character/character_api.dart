@@ -1,7 +1,6 @@
 import '../../core/crudl_api.dart';
 import '../../core/endpoint.dart';
 import '../../core/pagination/pagination.dart';
-import '../../db/character_datasource.dart';
 import '../../db/db.dart';
 import '../../domain/character/character.dart';
 import '../../domain/character/character_create.dart';

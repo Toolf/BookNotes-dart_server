@@ -3,16 +3,22 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:book_notes/api/api.dart';
+import 'package:book_notes/config/config.dart';
+import 'package:book_notes/core/access.dart';
 import 'package:book_notes/core/endpoint.dart';
 import 'package:book_notes/core/exception/api_exception.dart';
 import 'package:book_notes/core/exception/db_exception.dart';
 import 'package:book_notes/core/exception/validation_exception.dart';
+import 'package:book_notes/core/jwt_service.dart';
+import 'package:book_notes/core/permission.dart';
+import 'package:book_notes/db/db.dart';
 import 'package:book_notes/transport/http/cors.dart';
 import 'package:book_notes/transport/http/swagger.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 
 part 'endpoints.dart';
+part 'endpoint_check_permission.dart';
 
 FutureOr<Response> _rootHandler(Request req) async {
   try {
@@ -39,10 +45,10 @@ FutureOr<Response> _rootHandler(Request req) async {
       return Response(400, body: "Method not found");
     }
 
+    await endpoint.checkPermission(req);
     endpoint.parameters?.validate(jsonData["data"]);
     final endpointData =
-        endpoint.parameters?.entityConstructor(jsonData["data"]) ??
-            jsonData["data"];
+        endpoint.parameters?.parse(jsonData["data"]) ?? jsonData["data"];
     endpoint.validate(endpointData);
     final res = await endpoint.method(endpointData);
     final resJsonString = jsonEncode(res);
@@ -50,11 +56,13 @@ FutureOr<Response> _rootHandler(Request req) async {
     endpoint.returns?.validate(resJson);
     return Response.ok(resJsonString);
   } on DbException catch (e) {
-    return Response(400, body: e.message);
+    return Response(400, body: '{"error": "${e.message}"}');
   } on ApiException catch (e) {
-    return Response(400, body: e.message);
+    return Response(400, body: '{"error": "${e.message}"}');
   } on ValidationException catch (e) {
-    return Response(400, body: e.message);
+    return Response(400, body: '{"error": "${e.message}"}');
+  } on ForbiddenException catch (e) {
+    return Response(403, body: '{"error": "${e.message}"}');
   } catch (e) {
     print(e);
     return Response.internalServerError();

@@ -35,4 +35,16 @@ final endpoints = <String, Endpoint>{
   "note/update": api.note.update,
   "note/delete": api.note.delete,
   "note/list": api.note.list,
+  // User
+  "user/create": api.user.create,
+  "user/read": api.user.read,
+  "user/update": api.user.update,
+  "user/delete": api.user.delete,
+  "user/list": api.user.list,
+  // UserGroup
+  "userGroup/create": api.userGroup.create,
+  "userGroup/read": api.userGroup.read,
+  "userGroup/update": api.userGroup.update,
+  "userGroup/delete": api.userGroup.delete,
+  "userGroup/list": api.userGroup.list,
 };

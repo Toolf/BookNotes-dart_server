@@ -27,7 +27,7 @@ class PaginationResponseSchema<T> extends Schema<PaginationResponse<T>> {
           },
           (dynamic json) {
             final data = (json['data'] as List)
-                .map(typeSchema.entityConstructor)
+                .map(typeSchema.parse)
                 .whereType<T>()
                 .toList();
 

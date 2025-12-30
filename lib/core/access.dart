@@ -1,3 +1,5 @@
+import 'permission.dart';
+
 abstract class Access {}
 
 class Logged implements Access {
@@ -19,3 +21,11 @@ class Login implements Access {
 
   const Login({required this.name});
 }
+
+class Acl implements Access {
+  final PermissionEntity entity;
+  final PermissionAction action;
+
+  const Acl({required this.entity, required this.action});
+}
+

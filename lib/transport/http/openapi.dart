@@ -25,11 +25,24 @@ class OpenApiSchema {
       final current = queue.removeLast();
 
       if (current is BasicSchema) {
-        continue;
+        final relatedSchema = current.one ?? current.many;
+        if (relatedSchema != null && allSchemas.add(relatedSchema)) {
+          queue.add(relatedSchema);
+        }
       } else if (current is Schema) {
         for (var field in current.fields.values) {
-          if (field.isObject && allSchemas.add((field.one ?? field.many)!)) {
+          if (field is BasicSchema &&
+              field.isObject &&
+              allSchemas.add((field.one ?? field.many)!)) {
             queue.add((field.one ?? field.many)!);
+          }
+          if (field is MapSchema) {
+            if (allSchemas.add(field.keySchema)) {
+              queue.add(field.keySchema);
+            }
+            if (allSchemas.add(field.valueSchema)) {
+              queue.add(field.valueSchema);
+            }
           }
         }
       } else if (current is SchemaView) {
@@ -39,7 +52,7 @@ class OpenApiSchema {
       }
     }
 
-    return allSchemas;
+    return allSchemas.where((schema) => schema is! BasicSchema).toSet();
   }
 
   List<SchemaBase> getEndpointSchemas() {
@@ -174,6 +187,12 @@ abstract class OpenapiSchemaBase {
     if (schema is SchemaView) {
       return OpenapiSchemaView(schema);
     }
+    if (schema is MapSchema) {
+      return OpenapiMapSchema(schema);
+    }
+    if (schema is EnumSchema) {
+      return OpenapiEnumSchema(schema);
+    }
 
     throw Exception("Unexpected schema type ${schema.runtimeType}");
   }
@@ -244,13 +263,45 @@ class OpenapiSchemaView implements OpenapiSchemaBase {
       "type": "object",
       "title": schema.name,
       "properties": {
-        for (final field in schema.fields)
-          field.name: schema.base.fields[field.name]!.isObject
+        for (final field in schema.fields.where((field) => schema.base.fields[field.name] is BasicSchema))
+          field.name: (schema.base.fields[field.name] as BasicSchema).isObject
               ? "#/components/schemas/${field.name}"
               : OpenapiSchemaBase(schema.base.fields[field.name]!).toJson(),
+        for (final field in schema.fields.where((field) => schema.base.fields[field.name] is! BasicSchema))
+          field.name: "any"
       },
       "required":
           schema.fields.where((f) => !f.nullable).map((f) => f.name).toList()
+    };
+  }
+}
+
+class OpenapiMapSchema implements OpenapiSchemaBase {
+  final MapSchema schema;
+
+  OpenapiMapSchema(this.schema);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "type": "object",
+      "title": schema.name,
+      "additionalProperties": OpenapiSchemaBase(schema.valueSchema).toJson(),
+    };
+  }
+}
+
+class OpenapiEnumSchema implements OpenapiSchemaBase {
+  final EnumSchema schema;
+
+  OpenapiEnumSchema(this.schema);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "type": "string",
+      "title": schema.name,
+      "enum": schema.enumValues,
     };
   }
 }

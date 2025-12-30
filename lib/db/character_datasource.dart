@@ -2,6 +2,7 @@ import '../core/db/pg.dart';
 import '../core/db/postgres_crudl_datasource.dart';
 import '../core/exception/db_exception.dart';
 import '../core/pagination/pagination.dart';
+import '../core/schema/basic_schema.dart';
 import '../domain/character/character.dart';
 import '../domain/character/character_create.dart';
 import '../domain/character/character_update.dart';
@@ -33,6 +34,7 @@ class CharacterDataSource extends PostgresCrudlDatasource<Character,
     try {
       await connection.open();
       final fieldsNames = relationshipSchema.fields.entries
+          .whereType<MapEntry<String, BasicSchema>>()
           .where((f) => !f.value.isObject)
           .map((f) => f.key)
           .toList();

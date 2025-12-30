@@ -7,12 +7,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../fixture/fixture_reader.dart';
-import '../../mock/db/book_datasource_mock.dart';
+import '../../mock/db/db_mock.dart';
 
 void main() {
-  final bookDataSource = BookDataSourceMock();
+  final db = DbMock();
 
-  final bookApi = BookApi(bookDataSource);
+  final bookApi = BookApi(db);
 
   group("Create Endpoint:", () {
     final bookCreateJson = fixture("book/book_create_fixture.json");
@@ -47,7 +47,7 @@ void main() {
           () async {
         // arrange
         final expectedBookId = 2;
-        when((() => bookDataSource.create(bookCreate)))
+        when((() => db.book.create(bookCreate)))
             .thenAnswer((_) => Future.value(expectedBookId));
         // act
         final bookId = await bookApi.create.method(bookCreate);
@@ -88,7 +88,7 @@ void main() {
           () async {
         // arrange
         final expectedBook = book;
-        when((() => bookDataSource.read(expectedBook.bookId)))
+        when((() => db.book.read(expectedBook.bookId)))
             .thenAnswer((_) => Future.value(expectedBook));
         // act
         final actualBook = await bookApi.read.method(expectedBook.bookId);
@@ -134,7 +134,7 @@ void main() {
           () async {
         // arrange
         final expectedBook = bookUpdated;
-        when((() => bookDataSource.update(bookUpdate)))
+        when((() => db.book.update(bookUpdate)))
             .thenAnswer((_) => Future.value(expectedBook));
         // act
         final actualBook = await bookApi.update.method(bookUpdate);
@@ -177,7 +177,7 @@ void main() {
           () async {
         // arrange
         final expectedBook = book;
-        when((() => bookDataSource.delete(book.bookId)))
+        when((() => db.book.delete(book.bookId)))
             .thenAnswer((_) => Future.value(book));
         // act
         final actualBook = await bookApi.delete.method(book.bookId);
